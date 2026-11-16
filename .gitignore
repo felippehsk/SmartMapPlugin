@@ -1,0 +1,10 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+.DS_Store
+Thumbs.db
+dist/_stage/
+utils/execute_number.txt
+krig/log.txt
+*.qgs~
+*.qgz~

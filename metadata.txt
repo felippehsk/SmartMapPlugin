@@ -7,11 +7,11 @@ name=Smart-Map
 qgisMinimumVersion=3.10
 qgisMaximumVersion=4.99
 description=Interpolation using Ordinary Kriging and Machine Learning (Support Vector Machine). Generate Management Zones.
-version=1.1
+version=1.2
 author=Gustavo Willam Pereira (IFSUDESTE-MG);Domingos Sárvio Magalhães Valente (UFV);Daniel Marçal de Queiroz (UFV);André Luiz de Freitas Coelho (UFV);Sandro Manuel Carmelino Hurtado (UFU)
 email=gustavowillam@gmail.com
 
-about=This Plugin allows the user to import data from a QGIS Layer. Generate the experimental semivariogram and theoretical semivariograms such as: Linear, Spherical, Exponential and Gaussian. Generate the interpolation using the Ordinary Kriging and Machine Learning method. Generate management zones.
+about=This Plugin allows the user to import data from a QGIS Layer. Generate the experimental semivariogram and theoretical semivariograms such as: Linear, Spherical, Exponential and Gaussian. Generate the interpolation using the Ordinary Kriging and Machine Learning method. Generate management zones. On first load, missing Python packages (e.g. scikit-learn) are installed automatically into the QGIS user environment (bundled wheels when present, otherwise PyPI).
 
 tracker=https://github.com/gustavowillam/SmartMapPlugin
 repository=https://github.com/gustavowillam/SmartMapPlugin

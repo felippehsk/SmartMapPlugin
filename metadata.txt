@@ -5,6 +5,7 @@
 [general]
 name=Smart-Map
 qgisMinimumVersion=3.10
+qgisMaximumVersion=4.99
 description=Interpolation using Ordinary Kriging and Machine Learning (Support Vector Machine). Generate Management Zones.
 version=1.1
 author=Gustavo Willam Pereira (IFSUDESTE-MG);Domingos Sárvio Magalhães Valente (UFV);Daniel Marçal de Queiroz (UFV);André Luiz de Freitas Coelho (UFV);Sandro Manuel Carmelino Hurtado (UFU)

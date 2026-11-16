@@ -62,9 +62,10 @@ class OrdinaryKriging:
 
         """
         
-        self.x=xy.iloc[:,0]
-        self.y=xy.iloc[:,1]
-        self.z=z.to_numpy()
+        # Use ndarray indexing for pandas 2+/3+ (Series[:, None] is unsupported).
+        self.x=np.asarray(xy.iloc[:,0], dtype=float)
+        self.y=np.asarray(xy.iloc[:,1], dtype=float)
+        self.z=np.asarray(z, dtype=float)
         
         
         
@@ -201,12 +202,13 @@ class OrdinaryKriging:
         #distance_upper_bound, maxima distancia para achar vizinhos
         #query completa a matriz idx com o comprimento do vetor de pontos
         #experimentais, quanto não acha k vizinhos no raio definido
+        # scipy>=1.9 renamed n_jobs -> workers; avoid deprecated/removed n_jobs.
         dist_all,ids_all=tree.query(xypts,k=self.n_closest_points,p=2, 
-                        distance_upper_bound=self.radius, n_jobs=-1)
+                        distance_upper_bound=self.radius, workers=-1)
         
         #calculada para 4 vizinhos, sem considerar radio de busca
         #Consume menos tempo de processamento
-        dist_4n,ids_4n=tree.query(xypts,k=4,p=2,n_jobs=-1)
+        dist_4n,ids_4n=tree.query(xypts,k=4,p=2,workers=-1)
         
         #para cada ponto da grade
         for i in range(npt):

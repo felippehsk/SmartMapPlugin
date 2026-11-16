@@ -116,12 +116,30 @@ requirements=["scipy", "pandas", "scikit-learn", "pyKrige", "pysal", "scikit-fuz
 #/Applications/QGIS-LTR.app/Contents/MacOS/lib/python3.8/site-packages                                 #local de instalação das libs do plugin via terminal MacOS
 
 
+def _python_minor_tuple(qgis_python_version):
+	"""Return (major, minor) from a sys.version string when possible."""
+	try:
+		parts = qgis_python_version.split()[0].split('.')
+		return int(parts[0]), int(parts[1])
+	except Exception:
+		return 0, 0
+
+
 def unzip_external_package(qgis_python_version, library_name, path_to_zip_file, directory_to_extract_to): 
 
     
     print('uncompressing:', library_name) 
 
-    if "v3.9" in qgis_python_version:  	#Python 3.9 
+    major, minor = _python_minor_tuple(qgis_python_version)
+
+    # Bundled wheels target CPython 3.7 / 3.9 only. Never extract them on
+    # Python 3.10+ (QGIS 4 / Windows) — ABI and path issues will crash import.
+    if major > 3 or (major == 3 and minor >= 10):
+        print(library_name + ' zip skipped: no compatible bundled binary for Python '
+              + str(major) + '.' + str(minor))
+        return False
+
+    if "v3.9" in qgis_python_version or (major == 3 and minor == 9):  	#Python 3.9 
 
         with zipfile.ZipFile(os.path.join(path_to_zip_file, library_name + '39.zip'), 'r') as zip_ref:
             zip_ref.extractall(directory_to_extract_to)
@@ -130,6 +148,8 @@ def unzip_external_package(qgis_python_version, library_name, path_to_zip_file, 
 
         with zipfile.ZipFile(os.path.join(path_to_zip_file, library_name + '37.zip'), 'r') as zip_ref:
             zip_ref.extractall(directory_to_extract_to)
+
+    return True
 	
 
 
@@ -140,6 +160,7 @@ def load_external_package(qgis_python_version, library_name, library_version, ex
     if unzip == False: 
 	    directory_to_extract_to = directory_to_extract_to[:-5]                        #C:\Users\Gustavo\AppData\Roaming\QGIS\QGIS3\profiles\default\python\plugins\Smart_Map\
     else: 
+	    # Prefer the writable user profile python folder (APPDATA), never Program Files.
 	    directory_to_extract_to = directory_to_extract_to[:-23]                       #C:\Users\Gustavo\AppData\Roaming\QGIS\QGIS3\profiles\default\python\
 	
     directory_to_extract_to = os.path.join(directory_to_extract_to, 'site-packages')  #C:\Users\Gustavo\AppData\Roaming\QGIS\QGIS3\profiles\default\python\site-packages           
@@ -153,12 +174,15 @@ def load_external_package(qgis_python_version, library_name, library_version, ex
         path_to_zip_file = path_to_zip_file[:-5]                                      #C:\Users\Gustavo\AppData\Roaming\QGIS\QGIS3\profiles\default\python\plugins\Smart_Map\
         print('path_to_zip_file', path_to_zip_file)
 
-        unzip_external_package(qgis_python_version, library_name, path_to_zip_file, directory_to_extract_to)
+        extracted = unzip_external_package(qgis_python_version, library_name, path_to_zip_file, directory_to_extract_to)
+        if not extracted:
+            return False
 
 
     #directory_to_extract_to = directory_to_extract_to.replace('\\', '/')             #não funciona no python 3.9 
     sys.path.append(directory_to_extract_to)     
     print(library_name + " loaded.       version: " + library_version  + " Locale: " + directory_to_extract_to)
+    return True
 
 
 
@@ -210,9 +234,9 @@ if "32 bit" in qgis_architecture:
     print("\nQGIS 32 bit")	
 
     msg_box = QMessageBox()
-    msg_box.setIcon(QMessageBox.Warning)
+    msg_box.setIcon(QMessageBox.Icon.Warning)
     msg_box.setText('This plugin only works on QGIS 64-bit. Please install 64-bit QGIS before installing the plugin.')
-    msg_box.exec_()
+    msg_box.exec()
 
 else: 	
 	
@@ -230,9 +254,9 @@ else:
 	except Exception:
 
 		msg_box = QMessageBox()
-		msg_box.setIcon(QMessageBox.Warning)
+		msg_box.setIcon(QMessageBox.Icon.Warning)
 		msg_box.setText('scipy library not found. Please go to github: https://github.com/gustavowillam/SmartMapPlugin and see how to install python libraries.')
-		msg_box.exec_()
+		msg_box.exec()
 
 
 	#pandas
@@ -244,9 +268,9 @@ else:
 	except Exception:
 
 		msg_box = QMessageBox()
-		msg_box.setIcon(QMessageBox.Warning)
+		msg_box.setIcon(QMessageBox.Icon.Warning)
 		msg_box.setText('pandas library not found. Please go to github: https://github.com/gustavowillam/SmartMapPlugin and see how to install python libraries.')
-		msg_box.exec_()
+		msg_box.exec()
 
 
 
@@ -280,15 +304,24 @@ else:
 
 		#install_external_package('sklearn', dep, exec_number, unzip=True)
 
-		if system == 'Windows':                                                             #install if SO is Windows, else user must install sklearn via cmd.   
-			load_external_package(qgis_python_version, 'sklearn', dep, exec_number, unzip=True)
+		major, minor = _python_minor_tuple(qgis_python_version)
+		loaded = False
 
-		else:        
+		if system == 'Windows' and (major < 3 or (major == 3 and minor < 10)):
+			# Legacy QGIS 3 Windows: extract bundled sklearn37/39.zip into APPDATA.
+			loaded = load_external_package(qgis_python_version, 'sklearn', dep, exec_number, unzip=True)
 
+		if not loaded:
+			# QGIS 4 / Python 3.10+: use packages installed into the QGIS Python env
+			# (e.g. via python-qgis.bat -m pip install scikit-learn). Do not extract
+			# outdated .pyd archives into Program Files or the profile.
 			msg_box = QMessageBox()
-			msg_box.setIcon(QMessageBox.Warning)
-			msg_box.setText('sklearn library not found. Please go to github: https://github.com/gustavowillam/SmartMapPlugin and see how to install python libraries.')
-			msg_box.exec_()
+			msg_box.setIcon(QMessageBox.Icon.Warning)
+			msg_box.setText(
+				'sklearn library not found. On QGIS 4 / Python 3.10+, install it with: '
+				'python-qgis.bat -m pip install scikit-learn'
+			)
+			msg_box.exec()
 			
 			
 	print("Dependencies checked!")

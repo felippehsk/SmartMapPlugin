@@ -224,9 +224,9 @@ class smart_map:
     def closeEvent(self, event):
 
         
-        close = QMessageBox.question(self.dlg, self.tr('Mensagem'), self.tr('Deseja realmente sair?'), QMessageBox.Yes | QMessageBox.No)
+        close = QMessageBox.question(self.dlg, self.tr('Mensagem'), self.tr('Deseja realmente sair?'), QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No)
 
-        if close == QMessageBox.Yes:
+        if close == QMessageBox.StandardButton.Yes:
 
             self.dlg.mMapLayerComboBox.currentIndexChanged.disconnect()    #disconnect event of combobox select Layer Qgis in Atributte Table
           
@@ -393,10 +393,10 @@ class smart_map:
 
             msg_box = QMessageBox()
             msg_box.setWindowIcon(QtGui.QIcon(self.icon_path))
-            msg_box.setIcon(QMessageBox.Warning)
+            msg_box.setIcon(QMessageBox.Icon.Warning)
             msg_box.setWindowTitle(self.tr('Mensagem'))
             msg_box.setText(self.tr('Não existe nenhum projeto QGIS aberto. Abra um projeto QGIS.') + '\n' + self.tr('Ou save o projeto atual antes de executar o plugin Smart-Map.'))
-            msg_box.exec_()
+            msg_box.exec()
 
         else: 
             
@@ -623,14 +623,14 @@ class smart_map:
 
 
             #layer tabela de atributos             
-            self.dlg.mMapLayerComboBox.setFilters(QgsMapLayerProxyModel.PointLayer)                                                 #filter layer PointLayer 
+            self.dlg.mMapLayerComboBox.setFilters(QgsMapLayerProxyModel.Filter.PointLayer)                                                 #filter layer PointLayer 
     
             #layer area de contorno
-            self.dlg.mMapLayerComboBox_AreaCont.setFilters(QgsMapLayerProxyModel.PolygonLayer)                                      #filter layer PointLayer (QgsMapLayerProxyModel.PointLayer) / PolygonLayer  (QgsMapLayerProxyModel.PolygonLayer)  
+            self.dlg.mMapLayerComboBox_AreaCont.setFilters(QgsMapLayerProxyModel.Filter.PolygonLayer)                                      #filter layer PointLayer (QgsMapLayerProxyModel.PointLayer) / PolygonLayer  (QgsMapLayerProxyModel.PolygonLayer)  
     
     
             #layer Dense_Layer
-            self.dlg.mMapLayerComboBox_DenseLayer.setFilters(QgsMapLayerProxyModel.PointLayer | QgsMapLayerProxyModel.RasterLayer)  #filter layer PointLayer/RasterLayer    
+            self.dlg.mMapLayerComboBox_DenseLayer.setFilters(QgsMapLayerProxyModel.Filter.PointLayer | QgsMapLayerProxyModel.Filter.RasterLayer)  #filter layer PointLayer/RasterLayer    
     
     
             # show the dialog
@@ -661,7 +661,7 @@ class smart_map:
             self.load_maps_to_generate_ZM()                                                 
 
             
-            result = self.dlg.exec_()                                          #button OK 
+            result = self.dlg.exec()                                          #button OK 
             # See if OK was pressed
     
            
@@ -883,17 +883,17 @@ class smart_map:
         self.About = smart_mapAbout()  #Interface about credits of system
         #self.About.show()             #display como show 
         self.About.setWindowIcon(QtGui.QIcon(self.icon_path))        
-        self.About.exec_()             #display como showmodal 
+        self.About.exec()             #display como showmodal 
         
         
     def label_language_PT_clicked(self, value):
 
         msg_box = QMessageBox()
         msg_box.setWindowIcon(QtGui.QIcon(self.icon_path))        
-        msg_box.setIcon(QMessageBox.Warning)
+        msg_box.setIcon(QMessageBox.Icon.Warning)
         msg_box.setWindowTitle(self.tr('Mensagem'))
         msg_box.setText(self.tr('Feche e Abra o plugin novamente para aplicar o idioma selecionado!'))
-        msg_box.exec_()
+        msg_box.exec()
                     
         f = open(os.path.join(self.plugin_dir, 'i18n', 'language.txt'), 'w')        
         f.write('Portuguese')          
@@ -907,10 +907,10 @@ class smart_map:
 
         msg_box = QMessageBox()
         msg_box.setWindowIcon(QtGui.QIcon(self.icon_path))        
-        msg_box.setIcon(QMessageBox.Warning)
+        msg_box.setIcon(QMessageBox.Icon.Warning)
         msg_box.setWindowTitle(self.tr('Mensagem'))
         msg_box.setText(self.tr('Feche e Abra o plugin novamente para aplicar o idioma selecionado!'))
-        msg_box.exec_()
+        msg_box.exec()
                     
         f = open(os.path.join(self.plugin_dir, 'i18n', 'language.txt'), 'w')        
         f.write('English')
@@ -1192,10 +1192,10 @@ class smart_map:
             #mensagem de retorno ao usuário 
             msg_box = QMessageBox()
             msg_box.setWindowIcon(QtGui.QIcon(self.icon_path))        
-            msg_box.setIcon(QMessageBox.Warning)
+            msg_box.setIcon(QMessageBox.Icon.Warning)
             msg_box.setWindowTitle(self.tr('Mensagem'))
             msg_box.setText(self.tr('Erro ao carregar tabela. Valor Inválido!'))
-            msg_box.exec_()
+            msg_box.exec()
 
             
         #preencher as linhas da planilha 
@@ -1231,13 +1231,13 @@ class smart_map:
             #mensagem de retorno ao usuário 
             msg_box = QMessageBox()
             msg_box.setWindowIcon(QtGui.QIcon(self.icon_path))        
-            msg_box.setIcon(QMessageBox.Warning)
+            msg_box.setIcon(QMessageBox.Icon.Warning)
             msg_box.setWindowTitle(self.tr('Mensagem'))
             msg_box.setText(self.tr('Erro ao carregar tabela. Valor Inválido!'))
-            msg_box.exec_()
+            msg_box.exec()
         
          
-        self.dlg.datatable_atributos.setEditTriggers(QtWidgets.QTableWidget.NoEditTriggers)   #read-only para as celulas do datatable
+        self.dlg.datatable_atributos.setEditTriggers(QtWidgets.QAbstractItemView.EditTrigger.NoEditTriggers)   #read-only para as celulas do datatable
 
         progress.close() 
 
@@ -1271,10 +1271,10 @@ class smart_map:
             #mensagem de retorno ao usuário 
             msg_box = QMessageBox()
             msg_box.setWindowIcon(QtGui.QIcon(self.icon_path))        
-            msg_box.setIcon(QMessageBox.Warning)
+            msg_box.setIcon(QMessageBox.Icon.Warning)
             msg_box.setWindowTitle(self.tr('Mensagem'))
             msg_box.setText(self.tr('Erro ao carregar tabela. Valor Inválido!'))
-            msg_box.exec_()
+            msg_box.exec()
 
 
         #preencher as linhas do datatable_SVM_Trainfeatures 
@@ -1302,14 +1302,14 @@ class smart_map:
             #mensagem de retorno ao usuário 
             msg_box = QMessageBox()
             msg_box.setWindowIcon(QtGui.QIcon(self.icon_path))        
-            msg_box.setIcon(QMessageBox.Warning)
+            msg_box.setIcon(QMessageBox.Icon.Warning)
             msg_box.setWindowTitle(self.tr('Mensagem'))
             msg_box.setText(self.tr('Erro ao carregar tabela. Valor Inválido!'))
-            msg_box.exec_()
+            msg_box.exec()
 
         self.dlg.datatable_SVM_Trainfeatures.resizeColumnsToContents();
 
-        self.dlg.datatable_SVM_Trainfeatures.setEditTriggers(QtWidgets.QTableWidget.NoEditTriggers) #read-only para as celulas do datatable
+        self.dlg.datatable_SVM_Trainfeatures.setEditTriggers(QtWidgets.QAbstractItemView.EditTrigger.NoEditTriggers) #read-only para as celulas do datatable
 
         progress.close() 
         
@@ -1344,10 +1344,10 @@ class smart_map:
             #mensagem de retorno ao usuário 
             msg_box = QMessageBox()
             msg_box.setWindowIcon(QtGui.QIcon(self.icon_path))        
-            msg_box.setIcon(QMessageBox.Warning)
+            msg_box.setIcon(QMessageBox.Icon.Warning)
             msg_box.setWindowTitle(self.tr('Mensagem'))
             msg_box.setText(self.tr('Erro ao carregar tabela. Valor Inválido!'))
-            msg_box.exec_()
+            msg_box.exec()
 
 
         #preencher as linhas do datatable_SVM_Trainlabels 
@@ -1373,13 +1373,13 @@ class smart_map:
             #mensagem de retorno ao usuário 
             msg_box = QMessageBox()
             msg_box.setWindowIcon(QtGui.QIcon(self.icon_path))        
-            msg_box.setIcon(QMessageBox.Warning)
+            msg_box.setIcon(QMessageBox.Icon.Warning)
             msg_box.setWindowTitle(self.tr('Mensagem'))
             msg_box.setText(self.tr('Erro ao carregar tabela. Valor Inválido!'))
-            msg_box.exec_()
+            msg_box.exec()
 
 
-        self.dlg.datatable_SVM_Trainlabels.setEditTriggers(QtWidgets.QTableWidget.NoEditTriggers) #read-only para as celulas do datatable
+        self.dlg.datatable_SVM_Trainlabels.setEditTriggers(QtWidgets.QAbstractItemView.EditTrigger.NoEditTriggers) #read-only para as celulas do datatable
 
         progress.close()         
         
@@ -1425,10 +1425,10 @@ class smart_map:
 
                 msg_box = QMessageBox()
                 msg_box.setWindowIcon(QtGui.QIcon(self.icon_path))        
-                msg_box.setIcon(QMessageBox.Warning)
+                msg_box.setIcon(QMessageBox.Icon.Warning)
                 msg_box.setWindowTitle(self.tr('Mensagem'))
                 msg_box.setText(message)
-                msg_box.exec_()               
+                msg_box.exec()               
 
             else:      
 
@@ -1441,9 +1441,9 @@ class smart_map:
                     message = message + self.tr('O limite máximo suportado pelo plugin para a layer de entrada é: ') + str(self.maximum_points_plugin) + self.tr(' pontos.') + '\n'
                     message = message + self.tr('Deseja realizar uma reamostragem de pontos?') + '\n'
     
-                    resample = QMessageBox.question(self.dlg, self.tr('Mensagem'), self.tr(message) , QMessageBox.Yes | QMessageBox.No)
+                    resample = QMessageBox.question(self.dlg, self.tr('Mensagem'), self.tr(message) , QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No)
             
-                    if resample == QMessageBox.No:
+                    if resample == QMessageBox.StandardButton.No:
     
                         continue_prossessing = 'NO'
     
@@ -1566,10 +1566,10 @@ class smart_map:
                         #mensagem de retorno ao usuário             
                         msg_box = QMessageBox()
                         msg_box.setWindowIcon(QtGui.QIcon(self.icon_path))        
-                        msg_box.setIcon(QMessageBox.Warning)
+                        msg_box.setIcon(QMessageBox.Icon.Warning)
                         msg_box.setWindowTitle(self.tr('Mensagem'))
                         msg_box.setText(self.tr('Existem') + ' : ' + str(len(list_rows_NaN)) + ' ' + self.tr('valores nulos na tabela.') + '\n' + self.tr('Linha(s)') + ': ' + str(list_rows_NaN) + ' ' + self.tr('foram excluídas.'))
-                        msg_box.exec_()               
+                        msg_box.exec()               
     
     
               
@@ -1580,9 +1580,9 @@ class smart_map:
     
                         self.df = self.resampling_of_points(self.df)
     
-                        message = QMessageBox.question(self.dlg, self.tr('Mensagem'), self.tr('Deseja salvar os pontos reamostrados em uma nova layer Qgis?') , QMessageBox.Yes | QMessageBox.No)
+                        message = QMessageBox.question(self.dlg, self.tr('Mensagem'), self.tr('Deseja salvar os pontos reamostrados em uma nova layer Qgis?') , QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No)
                 
-                        if message == QMessageBox.Yes:
+                        if message == QMessageBox.StandardButton.Yes:
     
                             
                             self.df.to_csv(os.path.join(self.path_absolute , '0_Dados_Resample.csv'), sep=',', index=False, encoding='utf-8')
@@ -1932,10 +1932,10 @@ class smart_map:
             #mensagem de retorno ao usuário 
             msg_box = QMessageBox()
             msg_box.setWindowIcon(QtGui.QIcon(self.icon_path))        
-            msg_box.setIcon(QMessageBox.Warning)
+            msg_box.setIcon(QMessageBox.Icon.Warning)
             msg_box.setWindowTitle(self.tr('Mensagem'))
             msg_box.setText(self.tr('Nenhuma Layer Qgis selecionada. Selecione uma Layer Qgis.'))
-            msg_box.exec_()
+            msg_box.exec()
  
 
 
@@ -2179,10 +2179,10 @@ class smart_map:
             #mensagem de retorno ao usuário 
             msg_box = QMessageBox()
             msg_box.setWindowIcon(QtGui.QIcon(self.icon_path))        
-            msg_box.setIcon(QMessageBox.Warning)
+            msg_box.setIcon(QMessageBox.Icon.Warning)
             msg_box.setWindowTitle(self.tr('Mensagem'))
             msg_box.setText(self.tr('O CRS da Layer de Contorno é diferente do CRS da Layer da Tabela de Atributos.'))
-            msg_box.exec_()
+            msg_box.exec()
 
 
         elif (selectedLayer.geometryType() != 0) and (selectedLayer.geometryType() != 2):  #PoligonLayer 
@@ -2190,10 +2190,10 @@ class smart_map:
             #mensagem de retorno ao usuário 
             msg_box = QMessageBox()
             msg_box.setWindowIcon(QtGui.QIcon(self.icon_path))        
-            msg_box.setIcon(QMessageBox.Warning)
+            msg_box.setIcon(QMessageBox.Icon.Warning)
             msg_box.setWindowTitle(self.tr('Mensagem'))
             msg_box.setText(self.tr('Layer QGIS Inválida! Selecione uma Layer QGIS tipo: PointLayer ou PoligonLayer.'))
-            msg_box.exec_()
+            msg_box.exec()
 
         else: 
 
@@ -2207,10 +2207,10 @@ class smart_map:
 
                 msg_box = QMessageBox()
                 msg_box.setWindowIcon(QtGui.QIcon(self.icon_path))        
-                msg_box.setIcon(QMessageBox.Warning)
+                msg_box.setIcon(QMessageBox.Icon.Warning)
                 msg_box.setWindowTitle(self.tr('Mensagem'))
                 msg_box.setText(message)
-                msg_box.exec_()               
+                msg_box.exec()               
 
             else:      
 
@@ -2303,10 +2303,10 @@ class smart_map:
                     #mensagem de retorno ao usuário 
                     msg_box = QMessageBox()
                     msg_box.setWindowIcon(QtGui.QIcon(self.icon_path))        
-                    msg_box.setIcon(QMessageBox.Warning)
+                    msg_box.setIcon(QMessageBox.Icon.Warning)
                     msg_box.setWindowTitle(self.tr('Mensagem'))
                     msg_box.setText(self.tr('Erro ao carregar tabela. Valor Inválido!'))
-                    msg_box.exec_()
+                    msg_box.exec()
                     
                 
                 #preencher as linhas da planilha 
@@ -2327,13 +2327,13 @@ class smart_map:
                     #mensagem de retorno ao usuário 
                     msg_box = QMessageBox()
                     msg_box.setWindowIcon(QtGui.QIcon(self.icon_path))        
-                    msg_box.setIcon(QMessageBox.Warning)
+                    msg_box.setIcon(QMessageBox.Icon.Warning)
                     msg_box.setWindowTitle(self.tr('Mensagem'))
                     msg_box.setText(self.tr('Erro ao carregar tabela. Valor Inválido!'))
-                    msg_box.exec_()
+                    msg_box.exec()
         
     
-                self.dlg.datatable_limite.setEditTriggers(QtWidgets.QTableWidget.NoEditTriggers) #read-only para as celulas do datatable
+                self.dlg.datatable_limite.setEditTriggers(QtWidgets.QAbstractItemView.EditTrigger.NoEditTriggers) #read-only para as celulas do datatable
                 
                              
     
@@ -2530,10 +2530,10 @@ class smart_map:
                 #mensagem de retorno ao usuário 
                 msg_box = QMessageBox()
                 msg_box.setWindowIcon(QtGui.QIcon(self.icon_path))        
-                msg_box.setIcon(QMessageBox.Warning)
+                msg_box.setIcon(QMessageBox.Icon.Warning)
                 msg_box.setWindowTitle(self.tr('Mensagem'))
                 msg_box.setText(self.tr('Erro ao carregar tabela. Valor Inválido!'))
-                msg_box.exec_()
+                msg_box.exec()
                 
            
             #preencher as linhas da planilha 
@@ -2543,7 +2543,7 @@ class smart_map:
                     
                     chkBoxItem = QTableWidgetItem()
                     chkBoxItem.setFlags(QtCore.Qt.ItemIsUserCheckable | QtCore.Qt.ItemIsEnabled)
-                    chkBoxItem.setCheckState(QtCore.Qt.Unchecked)       
+                    chkBoxItem.setCheckState(QtCore.Qt.CheckState.Unchecked)       
                     self.dlg.datatable_semivariogramas.setItem(i,0,chkBoxItem)           
 
                     for j in range(11):       #colunas 
@@ -2562,15 +2562,15 @@ class smart_map:
                 #mensagem de retorno ao usuário 
                 msg_box = QMessageBox()
                 msg_box.setWindowIcon(QtGui.QIcon(self.icon_path))        
-                msg_box.setIcon(QMessageBox.Warning)
+                msg_box.setIcon(QMessageBox.Icon.Warning)
                 msg_box.setWindowTitle(self.tr('Mensagem'))
                 msg_box.setText(self.tr('Erro ao carregar tabela. Valor Inválido!'))
-                msg_box.exec_()
+                msg_box.exec()
     
     
             self.dlg.datatable_semivariogramas.resizeColumnsToContents();
             
-            self.dlg.datatable_semivariogramas.setEditTriggers(QtWidgets.QTableWidget.NoEditTriggers) #read-only para as celulas do datatable
+            self.dlg.datatable_semivariogramas.setEditTriggers(QtWidgets.QAbstractItemView.EditTrigger.NoEditTriggers) #read-only para as celulas do datatable
 
 
         #Arquivo de Semivariogramas não existe só preenche o cabeçalho. 
@@ -2590,10 +2590,10 @@ class smart_map:
                 #mensagem de retorno ao usuário 
                 msg_box = QMessageBox()
                 msg_box.setWindowIcon(QtGui.QIcon(self.icon_path))        
-                msg_box.setIcon(QMessageBox.Warning)
+                msg_box.setIcon(QMessageBox.Icon.Warning)
                 msg_box.setWindowTitle(self.tr('Mensagem'))
                 msg_box.setText(self.tr('Erro ao carregar tabela. Valor Inválido!'))
-                msg_box.exec_()
+                msg_box.exec()
 
 
     def datatable_semivariogramas_doubleClicked(self): 
@@ -2797,9 +2797,9 @@ class smart_map:
                     if Z == v_target:  #calculou o variograma de uma variável que já foi calculada -> substituir
 
                         semiv_calculated = True 
-                        msg = QMessageBox.question(self.dlg, self.tr('Mensagem'), self.tr('Deseja substituir o semivariograma de: ') + Z + ' ?', QMessageBox.Yes | QMessageBox.No)
+                        msg = QMessageBox.question(self.dlg, self.tr('Mensagem'), self.tr('Deseja substituir o semivariograma de: ') + Z + ' ?', QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No)
 
-                        if msg == QMessageBox.Yes:
+                        if msg == QMessageBox.StandardButton.Yes:
                         
                             #self.df_semivariograms.drop(i, inplace=True)    #remove a linha 
                             self.df_semivariograms.loc[i] = np.array([Z, Modelo,  DMax, Lag,  C0, C0_C, Range, RMSE,  R2, Raio, VB, DMax_Maximum, DMax_Minimum, C0_Maximum, C0_Minimum, C0_C_Maximum, C0_C_Minimum, Range_Maximum, Range_Minimum, Raio_Maximum, Raio_Minimum, VB_Maximum, VB_Minimum])
@@ -3434,10 +3434,10 @@ class smart_map:
             #mensagem de retorno ao usuário 
             msg_box = QMessageBox()
             msg_box.setWindowIcon(QtGui.QIcon(self.icon_path))        
-            msg_box.setIcon(QMessageBox.Warning)
+            msg_box.setIcon(QMessageBox.Icon.Warning)
             msg_box.setWindowTitle(self.tr('Mensagem'))
             msg_box.setText(self.tr('Faça a seleção de atributos(variáveis) na Tabela de Atributos e clique no botão Selecionar.'))
-            msg_box.exec_()
+            msg_box.exec()
  
         else: 
         
@@ -3472,10 +3472,10 @@ class smart_map:
             #mensagem de retorno ao usuário 
             msg_box = QMessageBox()
             msg_box.setWindowIcon(QtGui.QIcon(self.icon_path))        
-            msg_box.setIcon(QMessageBox.Warning)
+            msg_box.setIcon(QMessageBox.Icon.Warning)
             msg_box.setWindowTitle(self.tr('Mensagem'))
             msg_box.setText(self.tr('Ajuste do Semivariograma não realizado.'))
-            msg_box.exec_()
+            msg_box.exec()
                   
         else: 
             
@@ -3600,10 +3600,10 @@ class smart_map:
                 #mensagem de retorno ao usuário 
                 msg_box = QMessageBox()
                 msg_box.setWindowIcon(QtGui.QIcon(self.icon_path))        
-                msg_box.setIcon(QMessageBox.Warning)
+                msg_box.setIcon(QMessageBox.Icon.Warning)
                 msg_box.setWindowTitle(self.tr('Mensagem'))
                 msg_box.setText(self.tr('Erro ao carregar tabela. Valor Inválido!'))
-                msg_box.exec_()
+                msg_box.exec()
                 
            
             #preencher as linhas da planilha 
@@ -3630,15 +3630,15 @@ class smart_map:
                 #mensagem de retorno ao usuário 
                 msg_box = QMessageBox()
                 msg_box.setWindowIcon(QtGui.QIcon(self.icon_path))        
-                msg_box.setIcon(QMessageBox.Warning)
+                msg_box.setIcon(QMessageBox.Icon.Warning)
                 msg_box.setWindowTitle(self.tr('Mensagem'))
                 msg_box.setText(self.tr('Erro ao carregar tabela. Valor Inválido!'))
-                msg_box.exec_()
+                msg_box.exec()
 
     
             self.dlg.datatable_pontos_interpolados_OK.resizeColumnsToContents();
             
-            self.dlg.datatable_pontos_interpolados_OK.setEditTriggers(QtWidgets.QTableWidget.NoEditTriggers) #read-only para as celulas do datatable
+            self.dlg.datatable_pontos_interpolados_OK.setEditTriggers(QtWidgets.QAbstractItemView.EditTrigger.NoEditTriggers) #read-only para as celulas do datatable
             
     
             self.dlg.tabWidget_Interpolacao_OK.setCurrentIndex(2)
@@ -3776,9 +3776,9 @@ class smart_map:
 
 
 
-        msg = QMessageBox.question(self.dlg, self.tr('Mensagem'), self.tr('Os mapas interpolados serão exportados para o QGIS. Deseja continuar?'), QMessageBox.Yes | QMessageBox.No)
+        msg = QMessageBox.question(self.dlg, self.tr('Mensagem'), self.tr('Os mapas interpolados serão exportados para o QGIS. Deseja continuar?'), QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No)
 
-        if msg == QMessageBox.Yes:
+        if msg == QMessageBox.StandardButton.Yes:
 
             if ((not self.dlg.checkBox_Qgis_Vector.isChecked()) and (not self.dlg.checkBox_Qgis_Raster.isChecked())):  #checkbox Vector e checkbox Raster não estão marcados 
 
@@ -3945,10 +3945,10 @@ class smart_map:
             #mensagem de retorno ao usuário 
             msg_box = QMessageBox()
             msg_box.setWindowIcon(QtGui.QIcon(self.icon_path))        
-            msg_box.setIcon(QMessageBox.Warning)
+            msg_box.setIcon(QMessageBox.Icon.Warning)
             msg_box.setWindowTitle(self.tr('Mensagem'))
             msg_box.setText(self.tr('Ajuste do Semivariograma não realizado.'))
-            msg_box.exec_()
+            msg_box.exec()
   
         else:          
             n_neig     = int(self.dlg.lineEdit_OK_VBNumMax.text())             #numero de vizinhos 
@@ -4047,10 +4047,10 @@ class smart_map:
                 #mensagem de retorno ao usuário 
                 msg_box = QMessageBox()
                 msg_box.setWindowIcon(QtGui.QIcon(self.icon_path))        
-                msg_box.setIcon(QMessageBox.Warning)
+                msg_box.setIcon(QMessageBox.Icon.Warning)
                 msg_box.setWindowTitle(self.tr('Mensagem'))
                 msg_box.setText(self.tr('Erro ao carregar tabela. Valor Inválido!'))
-                msg_box.exec_()
+                msg_box.exec()
 
                       
             #preencher as linhas da planilha 
@@ -4077,15 +4077,15 @@ class smart_map:
                 #mensagem de retorno ao usuário 
                 msg_box = QMessageBox()
                 msg_box.setWindowIcon(QtGui.QIcon(self.icon_path))        
-                msg_box.setIcon(QMessageBox.Warning)
+                msg_box.setIcon(QMessageBox.Icon.Warning)
                 msg_box.setWindowTitle(self.tr('Mensagem'))
                 msg_box.setText(self.tr('Erro ao carregar tabela. Valor Inválido!'))
-                msg_box.exec_() 
+                msg_box.exec() 
     
 
             self.dlg.datatable_validacao_cruzada_OK.resizeColumnsToContents();
      
-            self.dlg.datatable_validacao_cruzada_OK.setEditTriggers(QtWidgets.QTableWidget.NoEditTriggers) #read-only para as celulas do datatable
+            self.dlg.datatable_validacao_cruzada_OK.setEditTriggers(QtWidgets.QAbstractItemView.EditTrigger.NoEditTriggers) #read-only para as celulas do datatable
      
            
             #plotar o gráfico da validação cruzada 
@@ -4200,7 +4200,7 @@ class smart_map:
 
     def datatable_semivariogramas_checkbox_clicked(self, item):
 
-        if item.checkState() == QtCore.Qt.Checked:  #quando marca o checkbox  
+        if item.checkState() == QtCore.Qt.CheckState.Checked:  #quando marca o checkbox  
 
             if not item.row() in self.list_rows_semiv:
 
@@ -4342,10 +4342,10 @@ class smart_map:
                     #mensagem de retorno ao usuário 
                     msg_box = QMessageBox()
                     msg_box.setWindowIcon(QtGui.QIcon(self.icon_path))        
-                    msg_box.setIcon(QMessageBox.Warning)
+                    msg_box.setIcon(QMessageBox.Icon.Warning)
                     msg_box.setWindowTitle(self.tr('Mensagem'))
                     msg_box.setText(self.tr('O CRS da Layer selecionada é diferente do CRS da Layer da Tabela de Atributos.'))
-                    msg_box.exec_()
+                    msg_box.exec()
 
 
                 elif selectedLayer.type() == QgsMapLayerType.RasterLayer:      #RasterLayer  
@@ -4437,10 +4437,10 @@ class smart_map:
             #mensagem de retorno ao usuário 
             msg_box = QMessageBox()
             msg_box.setWindowIcon(QtGui.QIcon(self.icon_path))        
-            msg_box.setIcon(QMessageBox.Warning)
+            msg_box.setIcon(QMessageBox.Icon.Warning)
             msg_box.setWindowTitle(self.tr('Mensagem'))
             msg_box.setText(self.tr('Erro ao carregar tabela. Valor Inválido!'))
-            msg_box.exec_()
+            msg_box.exec()
             
         
         #preencher as linhas da planilha 
@@ -4451,7 +4451,7 @@ class smart_map:
 
                     chkBoxItem = QTableWidgetItem()
                     chkBoxItem.setFlags(QtCore.Qt.ItemIsUserCheckable | QtCore.Qt.ItemIsEnabled)
-                    chkBoxItem.setCheckState(QtCore.Qt.Unchecked)       
+                    chkBoxItem.setCheckState(QtCore.Qt.CheckState.Unchecked)       
                     self.dlg.datatable_moran.setItem(i,0,chkBoxItem)           
 
                 for j in range(len(df_moran.columns)):    #colunas 
@@ -4476,15 +4476,15 @@ class smart_map:
             #mensagem de retorno ao usuário 
             msg_box = QMessageBox()
             msg_box.setWindowIcon(QtGui.QIcon(self.icon_path))        
-            msg_box.setIcon(QMessageBox.Warning)
+            msg_box.setIcon(QMessageBox.Icon.Warning)
             msg_box.setWindowTitle(self.tr('Mensagem'))
             msg_box.setText(self.tr('Erro ao carregar tabela. Valor Inválido!'))
-            msg_box.exec_()
+            msg_box.exec()
 
 
         self.dlg.datatable_moran.resizeColumnsToContents()
 
-        self.dlg.datatable_moran.setEditTriggers(QtWidgets.QTableWidget.NoEditTriggers) #read-only para as celulas do datatable
+        self.dlg.datatable_moran.setEditTriggers(QtWidgets.QAbstractItemView.EditTrigger.NoEditTriggers) #read-only para as celulas do datatable
 
     ###########################################################################   
     #calculando Recursive Feature Elimination
@@ -4580,10 +4580,10 @@ class smart_map:
             #mensagem de retorno ao usuário 
             msg_box = QMessageBox()
             msg_box.setWindowIcon(QtGui.QIcon(self.icon_path))        
-            msg_box.setIcon(QMessageBox.Warning)
+            msg_box.setIcon(QMessageBox.Icon.Warning)
             msg_box.setWindowTitle(self.tr('Mensagem'))
             msg_box.setText(self.tr('Erro ao carregar tabela. Valor Inválido!'))
-            msg_box.exec_()
+            msg_box.exec()
             
         
         #preencher as linhas da planilha 
@@ -4608,15 +4608,15 @@ class smart_map:
             #mensagem de retorno ao usuário 
             msg_box = QMessageBox()
             msg_box.setWindowIcon(QtGui.QIcon(self.icon_path))        
-            msg_box.setIcon(QMessageBox.Warning)
+            msg_box.setIcon(QMessageBox.Icon.Warning)
             msg_box.setWindowTitle(self.tr('Mensagem'))
             msg_box.setText(self.tr('Erro ao carregar tabela. Valor Inválido!'))
-            msg_box.exec_()
+            msg_box.exec()
 
 
         self.dlg.datatable_RFE.resizeColumnsToContents()
 
-        self.dlg.datatable_RFE.setEditTriggers(QtWidgets.QTableWidget.NoEditTriggers) #read-only para as celulas do datatable
+        self.dlg.datatable_RFE.setEditTriggers(QtWidgets.QAbstractItemView.EditTrigger.NoEditTriggers) #read-only para as celulas do datatable
 
 
     ###########################################################################   
@@ -4638,10 +4638,10 @@ class smart_map:
                 #mensagem de retorno ao usuário 
                 msg_box = QMessageBox()
                 msg_box.setWindowIcon(QtGui.QIcon(self.icon_path))        
-                msg_box.setIcon(QMessageBox.Warning)
+                msg_box.setIcon(QMessageBox.Icon.Warning)
                 msg_box.setWindowTitle(self.tr('Mensagem'))
                 msg_box.setText(self.tr('O Modelo de Machine Learning não permite adicionar a variável target: ') + self.v_target + '\n' + self.tr('utilizando o método de busca por vizinho mais próximo.'))
-                msg_box.exec_()              
+                msg_box.exec()              
 
         else: 
             
@@ -4785,10 +4785,10 @@ class smart_map:
                 #mensagem de retorno ao usuário 
                 msg_box = QMessageBox()
                 msg_box.setWindowIcon(QtGui.QIcon(self.icon_path))        
-                msg_box.setIcon(QMessageBox.Warning)
+                msg_box.setIcon(QMessageBox.Icon.Warning)
                 msg_box.setWindowTitle(self.tr('Mensagem'))
                 msg_box.setText(Cord_Z + ' ' + self.tr('já foi adicionada às Covariáveis do Modelo SVM.'))
-                msg_box.exec_()              
+                msg_box.exec()              
     
     
             else: 
@@ -5526,10 +5526,10 @@ class smart_map:
                     #mensagem de retorno ao usuário 
                     msg_box = QMessageBox()
                     msg_box.setWindowIcon(QtGui.QIcon(self.icon_path))        
-                    msg_box.setIcon(QMessageBox.Warning)
+                    msg_box.setIcon(QMessageBox.Icon.Warning)
                     msg_box.setWindowTitle(self.tr('Mensagem'))
                     msg_box.setText(self.tr('Erro ao carregar tabela. Valor Inválido!'))
-                    msg_box.exec_()
+                    msg_box.exec()
                     
                     
                 #preencher as linhas do datatable TrainFeatures 
@@ -5556,16 +5556,16 @@ class smart_map:
                     #mensagem de retorno ao usuário 
                     msg_box = QMessageBox()
                     msg_box.setWindowIcon(QtGui.QIcon(self.icon_path))        
-                    msg_box.setIcon(QMessageBox.Warning)
+                    msg_box.setIcon(QMessageBox.Icon.Warning)
                     msg_box.setWindowTitle(self.tr('Mensagem'))
                     msg_box.setText(self.tr('Erro ao carregar tabela. Valor Inválido!'))
-                    msg_box.exec_()
+                    msg_box.exec()
 
                 progress.close() 
     
                 self.dlg.datatable_SVM_Trainfeatures.resizeColumnsToContents()
     
-                self.dlg.datatable_SVM_Trainfeatures.setEditTriggers(QtWidgets.QTableWidget.NoEditTriggers) #read-only para as celulas do datatable
+                self.dlg.datatable_SVM_Trainfeatures.setEditTriggers(QtWidgets.QAbstractItemView.EditTrigger.NoEditTriggers) #read-only para as celulas do datatable
 
                 #salvar o dataframe df_SVM_TrainFeatures 
                 self.df_SVM_Trainfeatures.to_csv(os.path.join(self.path_absolute ,  '1_SVM_' + self.VTarget_FileName + '_Train_Set.csv'), sep=',', index = False, encoding='utf-8')
@@ -5595,9 +5595,9 @@ class smart_map:
     def  pushButton_SVM_Add_Selected_Features_clicked(self):                   #Add Selected Features do modelo de ML
                
         
-        msg = QMessageBox.question(self.dlg, self.tr('Mensagem'), self.tr('As variáveis selecionadas serão adicionadas ao modelo SVM. Deseja continuar?'), QMessageBox.Yes | QMessageBox.No)
+        msg = QMessageBox.question(self.dlg, self.tr('Mensagem'), self.tr('As variáveis selecionadas serão adicionadas ao modelo SVM. Deseja continuar?'), QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No)
 
-        if msg == QMessageBox.Yes:
+        if msg == QMessageBox.StandardButton.Yes:
 
             for v in range(len(self.list_rows_moran)): 
            
@@ -5615,7 +5615,7 @@ class smart_map:
 
     def datatable_moran_checkbox_clicked(self, item):
 
-        if item.checkState() == QtCore.Qt.Checked:  #quando marca o checkbox  
+        if item.checkState() == QtCore.Qt.CheckState.Checked:  #quando marca o checkbox  
 
             if not item.row() in self.list_rows_moran: 
                 self.list_rows_moran.append(item.row())
@@ -5643,10 +5643,10 @@ class smart_map:
             #mensagem de retorno ao usuário 
             msg_box = QMessageBox()
             msg_box.setWindowIcon(QtGui.QIcon(self.icon_path))        
-            msg_box.setIcon(QMessageBox.Warning)
+            msg_box.setIcon(QMessageBox.Icon.Warning)
             msg_box.setWindowTitle(self.tr('Mensagem'))
             msg_box.setText(self.tr('Todas as Covariáveis do Modelo SVM foram removidas.'))
-            msg_box.exec_()              
+            msg_box.exec()              
             
         else: 
 
@@ -5701,7 +5701,7 @@ class smart_map:
                 
                 self.dlg.datatable_SVM_Trainfeatures.resizeColumnsToContents()
     
-                self.dlg.datatable_SVM_Trainfeatures.setEditTriggers(QtWidgets.QTableWidget.NoEditTriggers) #read-only para as celulas do datatable
+                self.dlg.datatable_SVM_Trainfeatures.setEditTriggers(QtWidgets.QAbstractItemView.EditTrigger.NoEditTriggers) #read-only para as celulas do datatable
     
                 #self.checkBox_Moran_clicked() #exibe correlação de Moran 
 
@@ -5715,10 +5715,10 @@ class smart_map:
                 #mensagem de retorno ao usuário 
                 msg_box = QMessageBox()
                 msg_box.setWindowIcon(QtGui.QIcon(self.icon_path))        
-                msg_box.setIcon(QMessageBox.Warning)
+                msg_box.setIcon(QMessageBox.Icon.Warning)
                 msg_box.setWindowTitle(self.tr('Mensagem'))
                 msg_box.setText(self.tr('As Coordenadas (x, y) não podem ser removidas do Modelo SVM.'))
-                msg_box.exec_()              
+                msg_box.exec()              
               
 
 
@@ -5741,10 +5741,10 @@ class smart_map:
             #mensagem de retorno ao usuário 
             msg_box = QMessageBox()
             msg_box.setWindowIcon(QtGui.QIcon(self.icon_path))        
-            msg_box.setIcon(QMessageBox.Warning)
+            msg_box.setIcon(QMessageBox.Icon.Warning)
             msg_box.setWindowTitle(self.tr('Mensagem'))
             msg_box.setText(self.tr('Modelo Incompleto. Não existem covariáveis adicionadas ao Modelo SVM.'))
-            msg_box.exec_()              
+            msg_box.exec()              
          
         else: 
         '''
@@ -5961,10 +5961,10 @@ class smart_map:
             #mensagem de retorno ao usuário 
             msg_box = QMessageBox()
             msg_box.setWindowIcon(QtGui.QIcon(self.icon_path))        
-            msg_box.setIcon(QMessageBox.Warning)
+            msg_box.setIcon(QMessageBox.Icon.Warning)
             msg_box.setWindowTitle(self.tr('Mensagem'))
             msg_box.setText(self.tr('Erro ao carregar tabela. Valor Inválido!'))
-            msg_box.exec_()
+            msg_box.exec()
             
        
         #preencher as linhas da planilha 
@@ -5991,15 +5991,15 @@ class smart_map:
             #mensagem de retorno ao usuário 
             msg_box = QMessageBox()
             msg_box.setWindowIcon(QtGui.QIcon(self.icon_path))        
-            msg_box.setIcon(QMessageBox.Warning)
+            msg_box.setIcon(QMessageBox.Icon.Warning)
             msg_box.setWindowTitle(self.tr('Mensagem'))
             msg_box.setText(self.tr('Erro ao carregar tabela. Valor Inválido!'))
-            msg_box.exec_()
+            msg_box.exec()
 
 
         self.dlg.datatable_pontos_interpolados_SVM.resizeColumnsToContents();
 
-        self.dlg.datatable_pontos_interpolados_SVM.setEditTriggers(QtWidgets.QTableWidget.NoEditTriggers) #read-only para as celulas do datatable
+        self.dlg.datatable_pontos_interpolados_SVM.setEditTriggers(QtWidgets.QAbstractItemView.EditTrigger.NoEditTriggers) #read-only para as celulas do datatable
 
 
         ###################################################################
@@ -6148,10 +6148,10 @@ class smart_map:
             #mensagem de retorno ao usuário 
             msg_box = QMessageBox()
             msg_box.setWindowIcon(QtGui.QIcon(self.icon_path))        
-            msg_box.setIcon(QMessageBox.Warning)
+            msg_box.setIcon(QMessageBox.Icon.Warning)
             msg_box.setWindowTitle(self.tr('Mensagem'))
             msg_box.setText(self.tr('Modelo Incompleto. Não existem covariáveis adicionadas ao Modelo SVM.'))
-            msg_box.exec_()              
+            msg_box.exec()              
          
         else: 
         '''
@@ -6275,10 +6275,10 @@ class smart_map:
             #mensagem de retorno ao usuário 
             msg_box = QMessageBox()
             msg_box.setWindowIcon(QtGui.QIcon(self.icon_path))        
-            msg_box.setIcon(QMessageBox.Warning)
+            msg_box.setIcon(QMessageBox.Icon.Warning)
             msg_box.setWindowTitle(self.tr('Mensagem'))
             msg_box.setText(self.tr('Erro ao carregar tabela. Valor Inválido!'))
-            msg_box.exec_()
+            msg_box.exec()
                   
         #preencher as linhas da planilha 
         try:                       
@@ -6306,15 +6306,15 @@ class smart_map:
             #mensagem de retorno ao usuário 
             msg_box = QMessageBox()
             msg_box.setWindowIcon(QtGui.QIcon(self.icon_path))        
-            msg_box.setIcon(QMessageBox.Warning)
+            msg_box.setIcon(QMessageBox.Icon.Warning)
             msg_box.setWindowTitle(self.tr('Mensagem'))
             msg_box.setText(self.tr('Erro ao carregar tabela. Valor Inválido!'))
-            msg_box.exec_()
+            msg_box.exec()
 
    
         self.dlg.datatable_validacao_cruzada_SVM.resizeColumnsToContents();
 
-        self.dlg.datatable_validacao_cruzada_SVM.setEditTriggers(QtWidgets.QTableWidget.NoEditTriggers) #read-only para as celulas do datatable
+        self.dlg.datatable_validacao_cruzada_SVM.setEditTriggers(QtWidgets.QAbstractItemView.EditTrigger.NoEditTriggers) #read-only para as celulas do datatable
 
         progress.setValue(cont+3)                        
         if progress.wasCanceled():                          
@@ -6452,10 +6452,10 @@ class smart_map:
              #mensagem de retorno ao usuário 
              msg_box = QMessageBox()
              msg_box.setWindowIcon(QtGui.QIcon(self.icon_path))        
-             msg_box.setIcon(QMessageBox.Warning)
+             msg_box.setIcon(QMessageBox.Icon.Warning)
              msg_box.setWindowTitle(self.tr('Mensagem'))
              msg_box.setText(self.tr('Erro ao carregar tabela. Valor Inválido!'))
-             msg_box.exec_()
+             msg_box.exec()
 
   
         for i in range(len(lista)): 
@@ -6484,7 +6484,7 @@ class smart_map:
                     
                     chkBoxItem = QTableWidgetItem()
                     chkBoxItem.setFlags(QtCore.Qt.ItemIsUserCheckable | QtCore.Qt.ItemIsEnabled)
-                    chkBoxItem.setCheckState(QtCore.Qt.Unchecked)       
+                    chkBoxItem.setCheckState(QtCore.Qt.CheckState.Unchecked)       
                     self.dlg.datatable_ZM_Maps.setItem(i,0,chkBoxItem)           
 
                     Z = QTableWidgetItem(Z)                                              
@@ -6502,16 +6502,16 @@ class smart_map:
                     #mensagem de retorno ao usuário 
                     msg_box = QMessageBox()
                     msg_box.setWindowIcon(QtGui.QIcon(self.icon_path))        
-                    msg_box.setIcon(QMessageBox.Warning)
+                    msg_box.setIcon(QMessageBox.Icon.Warning)
                     msg_box.setWindowTitle(self.tr('Mensagem'))
                     msg_box.setText(self.tr('Erro ao carregar tabela. Valor Inválido!'))
-                    msg_box.exec_()
+                    msg_box.exec()
         
         
                 self.dlg.datatable_ZM_Maps.resizeColumnsToContents();
 
                 
-                self.dlg.datatable_ZM_Maps.setEditTriggers(QtWidgets.QTableWidget.NoEditTriggers) #read-only para as celulas do datatable
+                self.dlg.datatable_ZM_Maps.setEditTriggers(QtWidgets.QAbstractItemView.EditTrigger.NoEditTriggers) #read-only para as celulas do datatable
 
     
                 self.list_rows_Map_ZM = []
@@ -6537,14 +6537,14 @@ class smart_map:
                     for col in [1]:
                         chkBoxItem = QTableWidgetItem()
                         chkBoxItem.setFlags(QtCore.Qt.ItemIsUserCheckable | QtCore.Qt.ItemIsEnabled)
-                        chkBoxItem.setCheckState(QtCore.Qt.Unchecked)       
+                        chkBoxItem.setCheckState(QtCore.Qt.CheckState.Unchecked)       
                         qTable.setItem(row,col,chkBoxItem)           
                 '''
     
 
     def datatable_ZM_Maps_checkbox_clicked(self, item):
 
-        if item.checkState() == QtCore.Qt.Checked:  #quando marca o checkbox  
+        if item.checkState() == QtCore.Qt.CheckState.Checked:  #quando marca o checkbox  
 
             #print('"%s" Checked' % item.text())
             
@@ -6557,11 +6557,11 @@ class smart_map:
 
                 msg_box = QMessageBox()
                 msg_box.setWindowIcon(QtGui.QIcon(self.icon_path))        
-                msg_box.setIcon(QMessageBox.Warning)
+                msg_box.setIcon(QMessageBox.Icon.Warning)
                 msg_box.setWindowTitle(self.tr('Mensagem'))
                 msg_box.setText(self.tr('Variável já foi adicionada para gerar Zonas de Manejo.'))
-                msg_box.exec_()
-                item.setCheckState(QtCore.Qt.Unchecked)
+                msg_box.exec()
+                item.setCheckState(QtCore.Qt.CheckState.Unchecked)
                 Z_selected = True 
             else: 
             '''
@@ -6577,11 +6577,11 @@ class smart_map:
             if Points_dif == True: 
                 msg_box = QMessageBox()
                 msg_box.setWindowIcon(QtGui.QIcon(self.icon_path))        
-                msg_box.setIcon(QMessageBox.Warning)
+                msg_box.setIcon(QMessageBox.Icon.Warning)
                 msg_box.setWindowTitle(self.tr('Mensagem'))
                 msg_box.setText(self.tr('O número de pontos de todos os mapas interpolados devem ser igual para gerar Zonas de Manejo.'))
-                msg_box.exec_()
-                item.setCheckState(QtCore.Qt.Unchecked)
+                msg_box.exec()
+                item.setCheckState(QtCore.Qt.CheckState.Unchecked)
                     
                     
             if ((Z_selected == False) and (Points_dif == False)): 
@@ -6700,10 +6700,10 @@ class smart_map:
             #mensagem de retorno ao usuário 
             msg_box = QMessageBox()
             msg_box.setWindowIcon(QtGui.QIcon(self.icon_path))        
-            msg_box.setIcon(QMessageBox.Warning)
+            msg_box.setIcon(QMessageBox.Icon.Warning)
             msg_box.setWindowTitle(self.tr('Mensagem'))
             msg_box.setText(self.tr('Variável já foi adicionada.'))
-            msg_box.exec_()
+            msg_box.exec()
         '''
 
 
@@ -6712,14 +6712,14 @@ class smart_map:
             #mensagem de retorno ao usuário 
             msg_box = QMessageBox()
             msg_box.setWindowIcon(QtGui.QIcon(self.icon_path))        
-            msg_box.setIcon(QMessageBox.Warning)
+            msg_box.setIcon(QMessageBox.Icon.Warning)
             msg_box.setWindowTitle(self.tr('Mensagem'))
             msg = self.tr('Variável a ser adicionada possui ')  + str(len(df)) + self.tr(' pontos interpolados.')
             msg = msg + '\n' +  self.tr('Tabela de ZM possui ') + str(len(self.df_ZM_Coord)) + self.tr(' pontos interpolados.')
             msg = msg + '\n' +  self.tr('Não é possível adicionar a variável selecionada.') 
             msg = msg + '\n' +  self.tr('Número de pontos interpolados são diferentes.')
             msg_box.setText(msg)
-            msg_box.exec_()
+            msg_box.exec()
             
         else: 
        
@@ -6774,10 +6774,10 @@ class smart_map:
                 #mensagem de retorno ao usuário 
                 msg_box = QMessageBox()
                 msg_box.setWindowIcon(QtGui.QIcon(self.icon_path))        
-                msg_box.setIcon(QMessageBox.Warning)
+                msg_box.setIcon(QMessageBox.Icon.Warning)
                 msg_box.setWindowTitle(self.tr('Mensagem'))
                 msg_box.setText(self.tr('Erro ao carregar tabela. Valor Inválido!'))
-                msg_box.exec_()
+                msg_box.exec()
                 
 
             maximum = len(self.df_ZM_Var.index)
@@ -6815,15 +6815,15 @@ class smart_map:
                 #mensagem de retorno ao usuário 
                 msg_box = QMessageBox()
                 msg_box.setWindowIcon(QtGui.QIcon(self.icon_path))        
-                msg_box.setIcon(QMessageBox.Warning)
+                msg_box.setIcon(QMessageBox.Icon.Warning)
                 msg_box.setWindowTitle(self.tr('Mensagem'))
                 msg_box.setText(self.tr('Erro ao carregar tabela. Valor Inválido!'))
-                msg_box.exec_()
+                msg_box.exec()
 
 
             self.dlg.datatable_ZM.resizeColumnsToContents();
 
-            self.dlg.datatable_ZM.setEditTriggers(QtWidgets.QTableWidget.NoEditTriggers) #read-only para as celulas do datatable
+            self.dlg.datatable_ZM.setEditTriggers(QtWidgets.QAbstractItemView.EditTrigger.NoEditTriggers) #read-only para as celulas do datatable
 
             self.ZM_Add_Var = True 
             
@@ -6890,10 +6890,10 @@ class smart_map:
             #mensagem de retorno ao usuário 
             msg_box = QMessageBox()
             msg_box.setWindowIcon(QtGui.QIcon(self.icon_path))        
-            msg_box.setIcon(QMessageBox.Warning)
+            msg_box.setIcon(QMessageBox.Icon.Warning)
             msg_box.setWindowTitle(self.tr('Mensagem'))
             msg_box.setText(self.tr('Todas as variáveis foram removidas.'))
-            msg_box.exec_() 
+            msg_box.exec() 
   
         else: 
             
@@ -6922,7 +6922,7 @@ class smart_map:
                 
                 self.dlg.datatable_ZM.resizeColumnsToContents();
         
-                self.dlg.datatable_ZM.setEditTriggers(QtWidgets.QTableWidget.NoEditTriggers) #read-only para as celulas do datatable
+                self.dlg.datatable_ZM.setEditTriggers(QtWidgets.QAbstractItemView.EditTrigger.NoEditTriggers) #read-only para as celulas do datatable
     
                 if  len(self.list_cov_ZM) == 0:  
                     
@@ -6964,10 +6964,10 @@ class smart_map:
                 #mensagem de retorno ao usuário 
                 msg_box = QMessageBox()
                 msg_box.setWindowIcon(QtGui.QIcon(self.icon_path))        
-                msg_box.setIcon(QMessageBox.Warning)
+                msg_box.setIcon(QMessageBox.Icon.Warning)
                 msg_box.setWindowTitle(self.tr('Mensagem'))
                 msg_box.setText(self.tr('As Coordenadas (x, y) não podem ser removidas.'))
-                msg_box.exec_()              
+                msg_box.exec()              
 
 
 
@@ -6985,10 +6985,10 @@ class smart_map:
             #mensagem de retorno ao usuário 
             msg_box = QMessageBox()
             msg_box.setWindowIcon(QtGui.QIcon(self.icon_path))        
-            msg_box.setIcon(QMessageBox.Warning)
+            msg_box.setIcon(QMessageBox.Icon.Warning)
             msg_box.setWindowTitle(self.tr('Mensagem'))
             msg_box.setText(self.tr('Variável(is) deve(m) ser adicionadas para gerar Zonas de Manejo.'))
-            msg_box.exec_()               
+            msg_box.exec()               
         
         else: 
 
@@ -7215,10 +7215,10 @@ class smart_map:
             #mensagem de retorno ao usuário 
             msg_box = QMessageBox()
             msg_box.setWindowIcon(QtGui.QIcon(self.icon_path))        
-            msg_box.setIcon(QMessageBox.Warning)
+            msg_box.setIcon(QMessageBox.Icon.Warning)
             msg_box.setWindowTitle(self.tr('Mensagem'))
             msg_box.setText(self.tr('Variável(is) deve(m) ser adicionadas para gerar Zonas de Manejo.'))
-            msg_box.exec_()               
+            msg_box.exec()               
 
         else: 
             
@@ -7320,10 +7320,10 @@ class smart_map:
                 #mensagem de retorno ao usuário 
                 msg_box = QMessageBox()
                 msg_box.setWindowIcon(QtGui.QIcon(self.icon_path))        
-                msg_box.setIcon(QMessageBox.Warning)
+                msg_box.setIcon(QMessageBox.Icon.Warning)
                 msg_box.setWindowTitle(self.tr('Mensagem'))
                 msg_box.setText(self.tr('Número Máximo de classes excedido.'))
-                msg_box.exec_()               
+                msg_box.exec()               
                 
 
             '''
@@ -7391,10 +7391,10 @@ class smart_map:
                 #mensagem de retorno ao usuário 
                 msg_box = QMessageBox()
                 msg_box.setWindowIcon(QtGui.QIcon(self.icon_path))        
-                msg_box.setIcon(QMessageBox.Warning)
+                msg_box.setIcon(QMessageBox.Icon.Warning)
                 msg_box.setWindowTitle(self.tr('Mensagem'))
                 msg_box.setText(self.tr('Erro ao carregar tabela. Valor Inválido!'))
-                msg_box.exec_()
+                msg_box.exec()
                 
            
             #preencher as linhas da planilha 
@@ -7422,17 +7422,17 @@ class smart_map:
                 #mensagem de retorno ao usuário 
                 msg_box = QMessageBox()
                 msg_box.setWindowIcon(QtGui.QIcon(self.icon_path))        
-                msg_box.setIcon(QMessageBox.Warning)
+                msg_box.setIcon(QMessageBox.Icon.Warning)
                 msg_box.setWindowTitle(self.tr('Mensagem'))
                 msg_box.setText(self.tr('Erro ao carregar tabela. Valor Inválido!'))
-                msg_box.exec_()
+                msg_box.exec()
 
     
             #self.dlg.datatable_ZM_Classe.removeColumn(0)  #remove coluna ID da interface do usuário             
 
             self.dlg.datatable_ZM_Classe.resizeColumnsToContents()
 
-            self.dlg.datatable_ZM_Classe.setEditTriggers(QtWidgets.QTableWidget.NoEditTriggers) #read-only para as celulas do datatable
+            self.dlg.datatable_ZM_Classe.setEditTriggers(QtWidgets.QAbstractItemView.EditTrigger.NoEditTriggers) #read-only para as celulas do datatable
 
             
             u_orig = u_orig.T  #u_orig [2,7860]     #2 classes, 7860 amostras  , #u_orig.T [7860,2]
@@ -7517,10 +7517,10 @@ class smart_map:
                 else: 
                     #mensagem de retorno ao usuário 
                     msg_box = QMessageBox()
-                    msg_box.setIcon(QMessageBox.Warning)
+                    msg_box.setIcon(QMessageBox.Icon.Warning)
                     msg_box.setWindowTitle(self.tr('Mensagem'))
                     msg_box.setText(self.tr('Número Máximo de classes excedido.'))
-                    msg_box.exec_()               
+                    msg_box.exec()               
 
 
             self.Cord_X   =  'CoordX_SM' #self.dlg.comboBox_CordX.currentText()  
@@ -7569,10 +7569,10 @@ class smart_map:
             else: 
                 #mensagem de retorno ao usuário 
                 msg_box = QMessageBox()
-                msg_box.setIcon(QMessageBox.Warning)
+                msg_box.setIcon(QMessageBox.Icon.Warning)
                 msg_box.setWindowTitle(self.tr('Mensagem'))
                 msg_box.setText(self.tr('Número Máximo de classes excedido.'))
-                msg_box.exec_()               
+                msg_box.exec()               
 
              
 
@@ -7603,10 +7603,10 @@ class smart_map:
 
                 #mensagem de retorno ao usuário 
                 msg_box = QMessageBox()
-                msg_box.setIcon(QMessageBox.Warning)
+                msg_box.setIcon(QMessageBox.Icon.Warning)
                 msg_box.setWindowTitle(self.tr('Mensagem'))
                 msg_box.setText(self.tr('Erro ao carregar tabela. Valor Inválido!'))
-                msg_box.exec_()
+                msg_box.exec()
                 
                 
             #preencher as linhas da planilha 
@@ -7628,15 +7628,15 @@ class smart_map:
 
                 #mensagem de retorno ao usuário 
                 msg_box = QMessageBox()
-                msg_box.setIcon(QMessageBox.Warning)
+                msg_box.setIcon(QMessageBox.Icon.Warning)
                 msg_box.setWindowTitle(self.tr('Mensagem'))
                 msg_box.setText(self.tr('Erro ao carregar tabela. Valor Inválido!'))
-                msg_box.exec_()
+                msg_box.exec()
 
    
             #self.dlg.datatable_MP.removeColumn(0)  #remove coluna ID da interface do usuário             
 
-            self.dlg.datatable_MP.setEditTriggers(QtWidgets.QTableWidget.NoEditTriggers) #read-only para as celulas do datatable
+            self.dlg.datatable_MP.setEditTriggers(QtWidgets.QAbstractItemView.EditTrigger.NoEditTriggers) #read-only para as celulas do datatable
 
         
                        
@@ -7804,7 +7804,7 @@ class smart_map:
         crs = crs.split(':')                                                   #gera uma lista:  ['EPSG', '32723'] 
         crs = crs[1]                                                           #segundo elemento da lista: '32723'
          
-        spatRef = QgsCoordinateReferenceSystem(int(crs), QgsCoordinateReferenceSystem.EpsgCrsId)
+        spatRef = QgsCoordinateReferenceSystem(int(crs), QgsCoordinateReferenceSystem.CrsType.EpsgCrsId)
 
         inp_tab = QgsVectorLayer(Input_Table, 'Input_Table', 'ogr')
         prov = inp_tab.dataProvider()
@@ -7817,7 +7817,7 @@ class smart_map:
             #fields1.append(QgsField(fields[1], QVariant.Double))
             #fields1.append(QgsField(fields[2], QVariant.Double))
 
-        outLayer = QgsVectorFileWriter(Output_Layer_File_shp, None, fields1, QgsWkbTypes.Point, spatRef)
+        outLayer = QgsVectorFileWriter(Output_Layer_File_shp, None, fields1, QgsWkbTypes.Type.Point, spatRef)
          
         pt = QgsPointXY()
         outFeature = QgsFeature()
@@ -8034,7 +8034,7 @@ class smart_map:
 
         extent = layer.extent()
         
-        stats = provider.bandStatistics(1, QgsRasterBandStats.All,extent, 0)
+        stats = provider.bandStatistics(1, QgsRasterBandStats.Stats.All,extent, 0)
         
         if (stats.minimumValue < 0):
            min_value = 0  
@@ -8120,7 +8120,7 @@ class smart_map:
         myColorRamp = QgsColorRampShader()
         
         myColorRamp.setColorRampItemList(color_list)
-        myColorRamp.setColorRampType(QgsColorRampShader.Interpolated)
+        myColorRamp.setColorRampType(QgsColorRampShader.Type.Interpolated)
         myRasterShader.setRasterShaderFunction(myColorRamp)
         
         myPseudoRenderer = QgsSingleBandPseudoColorRenderer(layer.dataProvider(), 1,  myRasterShader)

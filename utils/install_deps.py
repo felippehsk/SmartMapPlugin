@@ -124,10 +124,11 @@ def _pip_install(pip_spec, target_dir=None, no_deps=False):
 
 
 def _try_import(import_name):
+    """Return (module, None) on success or (None, exception) on failure."""
     try:
-        return importlib.import_module(import_name)
-    except Exception:
-        return None
+        return importlib.import_module(import_name), None
+    except Exception as exc:
+        return None, exc
 
 
 def _show_warning(text):
@@ -138,9 +139,44 @@ def _show_warning(text):
     msg_box.exec()
 
 
+# Runtime helpers for scikit-learn / joblib when installing with --no-deps.
+# Order matters: cloudpickle must be present before joblib can import.
+SKLEARN_HELPERS = (
+    ('cloudpickle', 'cloudpickle'),
+    ('joblib', 'joblib'),
+    ('threadpoolctl', 'threadpoolctl'),
+    ('narwhals', 'narwhals'),
+)
+
+SKOPT_HELPERS = (
+    ('cloudpickle', 'cloudpickle'),
+    ('joblib', 'joblib'),
+    ('pyaml', 'pyaml'),
+    ('packaging', 'packaging'),
+)
+
+
+def _missing_helpers(helper_specs):
+    missing = []
+    for import_name, pip_spec in helper_specs:
+        mod, _err = _try_import(import_name)
+        if mod is None:
+            missing.append((import_name, pip_spec))
+    return missing
+
+
+def _install_specs(specs, target, no_deps=True):
+    for _import_name, pip_spec in specs:
+        try:
+            _pip_install(pip_spec, target_dir=target, no_deps=no_deps)
+        except Exception as helper_err:
+            print('target install failed for %s: %s' % (pip_spec, helper_err))
+            _pip_install(pip_spec, target_dir=None, no_deps=no_deps)
+
+
 def ensure_package(import_name, pip_spec, required=True):
     """Return True if import_name is available after optional install."""
-    mod = _try_import(import_name)
+    mod, err = _try_import(import_name)
     if mod is not None:
         ver = getattr(mod, '__version__', 'n/a')
         loc = getattr(mod, '__file__', 'n/a')
@@ -148,21 +184,22 @@ def ensure_package(import_name, pip_spec, required=True):
         return True
 
     print('%s missing — attempting install (%s)' % (import_name, pip_spec))
+    if err is not None:
+        print('  import error before install:', err)
+
     target = _user_site_packages()
     # If QGIS already provides numpy/scipy, install leaf packages without deps
     # so --target cannot override the QGIS binary stack.
-    core_ok = _try_import('numpy') is not None and _try_import('scipy') is not None
+    numpy_mod, _ = _try_import('numpy')
+    scipy_mod, _ = _try_import('scipy')
+    core_ok = numpy_mod is not None and scipy_mod is not None
     no_deps = import_name in ('sklearn', 'skopt', 'pykrige') and core_ok
-    # Lightweight pure-Python helpers still needed by recent scikit-learn.
+
     helper_specs = []
-    if import_name == 'sklearn' and no_deps:
-        for helper_import, helper_pip in (
-            ('joblib', 'joblib'),
-            ('threadpoolctl', 'threadpoolctl'),
-            ('narwhals', 'narwhals'),
-        ):
-            if _try_import(helper_import) is None:
-                helper_specs.append((helper_import, helper_pip))
+    if no_deps and import_name == 'sklearn':
+        helper_specs = _missing_helpers(SKLEARN_HELPERS)
+    elif no_deps and import_name == 'skopt':
+        helper_specs = _missing_helpers(SKOPT_HELPERS)
 
     progress = None
     try:
@@ -181,12 +218,8 @@ def ensure_package(import_name, pip_spec, required=True):
         progress.show()
         QApplication.processEvents()
 
-        for _helper_import, helper_pip in helper_specs:
-            try:
-                _pip_install(helper_pip, target_dir=target, no_deps=True)
-            except Exception as helper_err:
-                print('helper target install failed:', helper_err)
-                _pip_install(helper_pip, target_dir=None, no_deps=True)
+        if helper_specs:
+            _install_specs(helper_specs, target, no_deps=True)
 
         try:
             _pip_install(pip_spec, target_dir=target, no_deps=no_deps)
@@ -196,11 +229,23 @@ def ensure_package(import_name, pip_spec, required=True):
             _pip_install(pip_spec, target_dir=None, no_deps=no_deps)
 
         importlib.invalidate_caches()
-        mod = _try_import(import_name)
+        # Drop any half-imported dependency modules from a previous failed attempt.
+        for stale in (
+            'sklearn', 'joblib', 'cloudpickle', 'threadpoolctl', 'narwhals',
+            'skopt', 'pyaml', 'pykrige',
+        ):
+            sys.modules.pop(stale, None)
+            for key in list(sys.modules):
+                if key.startswith(stale + '.'):
+                    sys.modules.pop(key, None)
+
+        mod, import_err = _try_import(import_name)
         if mod is not None:
             print('%s installed successfully.' % import_name)
             return True
-        raise RuntimeError('import still failing after pip install')
+        raise RuntimeError(
+            'import still failing after pip install: %s' % import_err
+        )
     except Exception as exc:
         print('Failed to install %s: %s' % (pip_spec, exc))
         if required:
@@ -288,7 +333,8 @@ else:
 
     # Legacy Windows QGIS 3 (Python < 3.10): keep sklearn37/39.zip fallback.
     if system == 'Windows' and (major < 3 or (major == 3 and minor < 10)):
-        if _try_import('sklearn') is None:
+        _sklearn_mod, _ = _try_import('sklearn')
+        if _sklearn_mod is None:
             file_dir = os.path.dirname(os.path.abspath(__file__))
             exec_path = os.path.join(file_dir, 'execute_number.txt')
             if os.path.isfile(exec_path):

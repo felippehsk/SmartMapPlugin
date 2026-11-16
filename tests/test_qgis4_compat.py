@@ -180,6 +180,19 @@ def _exercise_qt6_dialog_apis(plugin):
             QtWidgets.QAbstractItemView.EditTrigger.NoEditTriggers
         )
 
+    # Validators used during run() setup.
+    from qgis.PyQt import QtGui
+
+    validator = QtGui.QDoubleValidator(
+        notation=QtGui.QDoubleValidator.Notation.StandardNotation
+    )
+    if hasattr(dlg, "lineEdit_XMin"):
+        dlg.lineEdit_XMin.setValidator(validator)
+        _assert(
+            dlg.lineEdit_XMin.validator() is not None,
+            "QDoubleValidator not attached",
+        )
+
 
 def _run_pipeline_smoke():
     """Exercise semivariogram, Ordinary Kriging, SVM, and fuzzy management zones."""

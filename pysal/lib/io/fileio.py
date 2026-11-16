@@ -34,7 +34,7 @@ class FileIO_MetaCls(type):
 
 
 class FileIO(object, metaclass=FileIO_MetaCls):  # should be a type?
-    """
+    r"""
     Metaclass for supporting spatial data file read and write
 
 

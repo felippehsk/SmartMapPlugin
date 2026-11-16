@@ -115,7 +115,7 @@ from .skfuzzy.cluster import _cmeans
 
 
 
-'''
+r'''
 raster_value('Estatisticas_GO_OK_OK_Grid_Predictions_K_38_6d530038_b366_4829_8c4d_5cc9d87aff10', 1, make_point($x, $y))
 pandas, scikit-learn, scikit-fuzzy, pysal, scikit-optimize, pyKrige do not work in the QGIS plugin.   
 have to install from the OSGEO4W-shell as an administrator
@@ -502,16 +502,16 @@ class smart_map:
             self.dlg.SpinBox_Pixel_Size_X.valueChanged.connect(self.SpinBox_Pixel_Size_X_changed)  
             self.dlg.SpinBox_Pixel_Size_Y.valueChanged.connect(self.SpinBox_Pixel_Size_Y_changed)  
 
-            self.dlg.lineEdit_XMin.setValidator(QtGui.QDoubleValidator(notation=QtGui.QDoubleValidator.StandardNotation))
+            self.dlg.lineEdit_XMin.setValidator(QtGui.QDoubleValidator(notation=QtGui.QDoubleValidator.Notation.StandardNotation))
             self.dlg.lineEdit_XMin.editingFinished.connect(self.lineEdit_XMin_editingFinished)  
 
-            self.dlg.lineEdit_XMax.setValidator(QtGui.QDoubleValidator(notation=QtGui.QDoubleValidator.StandardNotation))
+            self.dlg.lineEdit_XMax.setValidator(QtGui.QDoubleValidator(notation=QtGui.QDoubleValidator.Notation.StandardNotation))
             self.dlg.lineEdit_XMax.editingFinished.connect(self.lineEdit_XMax_editingFinished)  
 
-            self.dlg.lineEdit_YMin.setValidator(QtGui.QDoubleValidator(notation=QtGui.QDoubleValidator.StandardNotation))
+            self.dlg.lineEdit_YMin.setValidator(QtGui.QDoubleValidator(notation=QtGui.QDoubleValidator.Notation.StandardNotation))
             self.dlg.lineEdit_YMin.editingFinished.connect(self.lineEdit_YMin_editingFinished)  
 
-            self.dlg.lineEdit_YMax.setValidator(QtGui.QDoubleValidator(notation=QtGui.QDoubleValidator.StandardNotation))
+            self.dlg.lineEdit_YMax.setValidator(QtGui.QDoubleValidator(notation=QtGui.QDoubleValidator.Notation.StandardNotation))
             self.dlg.lineEdit_YMax.editingFinished.connect(self.lineEdit_YMax_editingFinished)  
     
             self.dlg.label_pontos_limite.mousePressEvent = self.label_pontos_limite_clicked
@@ -527,25 +527,25 @@ class smart_map:
             self.dlg.pushButton_VariogramaAjust.clicked.connect(self.pushButton_VariogramaAjust_clicked)                
             self.dlg.pushButton_VariogramaSave.clicked.connect(self.pushButton_VariogramaSave_clicked)                  
             
-            self.dlg.lineEdit_OK_DMax.setValidator(QtGui.QDoubleValidator(notation=QtGui.QDoubleValidator.StandardNotation))
+            self.dlg.lineEdit_OK_DMax.setValidator(QtGui.QDoubleValidator(notation=QtGui.QDoubleValidator.Notation.StandardNotation))
             self.dlg.lineEdit_OK_DMax.editingFinished.connect(self.lineEdit_OK_DMax_EditingFinished)  
             
-            self.dlg.lineEdit_OK_lags_dist.setValidator(QtGui.QDoubleValidator(notation=QtGui.QDoubleValidator.StandardNotation))
+            self.dlg.lineEdit_OK_lags_dist.setValidator(QtGui.QDoubleValidator(notation=QtGui.QDoubleValidator.Notation.StandardNotation))
             self.dlg.lineEdit_OK_lags_dist.editingFinished.connect(self.lineEdit_OK_lags_dist_EditingFinished)  
 
-            self.dlg.lineEdit_Nugget.setValidator(QtGui.QDoubleValidator(notation=QtGui.QDoubleValidator.StandardNotation))
+            self.dlg.lineEdit_Nugget.setValidator(QtGui.QDoubleValidator(notation=QtGui.QDoubleValidator.Notation.StandardNotation))
             self.dlg.lineEdit_Nugget.editingFinished.connect(self.lineEdit_Nugget_EditingFinished)  
 
-            self.dlg.lineEdit_Sill.setValidator(QtGui.QDoubleValidator(notation=QtGui.QDoubleValidator.StandardNotation))           
+            self.dlg.lineEdit_Sill.setValidator(QtGui.QDoubleValidator(notation=QtGui.QDoubleValidator.Notation.StandardNotation))           
             self.dlg.lineEdit_Sill.editingFinished.connect(self.lineEdit_Sill_EditingFinished)  
 
-            self.dlg.lineEdit_Range.setValidator(QtGui.QDoubleValidator(notation=QtGui.QDoubleValidator.StandardNotation))           
+            self.dlg.lineEdit_Range.setValidator(QtGui.QDoubleValidator(notation=QtGui.QDoubleValidator.Notation.StandardNotation))           
             self.dlg.lineEdit_Range.editingFinished.connect(self.lineEdit_Range_EditingFinished)  
 
             self.dlg.lineEdit_OK_VBNumMax.setValidator(QtGui.QIntValidator())           
             self.dlg.lineEdit_OK_VBNumMax.editingFinished.connect(self.lineEdit_OK_VBNumMax_EditingFinished)  
 
-            self.dlg.lineEdit_OK_VBRaio.setValidator(QtGui.QDoubleValidator(notation=QtGui.QDoubleValidator.StandardNotation))           
+            self.dlg.lineEdit_OK_VBRaio.setValidator(QtGui.QDoubleValidator(notation=QtGui.QDoubleValidator.Notation.StandardNotation))           
             self.dlg.lineEdit_OK_VBRaio.editingFinished.connect(self.lineEdit_OK_VBRaio_EditingFinished)  
 
             self.dlg.checkBox_Krigagem_Alcance.clicked.connect(self.checkBox_Krigagem_Alcance_clicked)                  
@@ -583,7 +583,7 @@ class smart_map:
             self.dlg.lineEdit_SVM_VBNumMax.setValidator(QtGui.QIntValidator())           
             self.dlg.lineEdit_SVM_VBNumMax.editingFinished.connect(self.lineEdit_SVM_VBNumMax_EditingFinished)          
     
-            self.dlg.lineEdit_SVM_VBRaio.setValidator(QtGui.QDoubleValidator(notation=QtGui.QDoubleValidator.StandardNotation))           
+            self.dlg.lineEdit_SVM_VBRaio.setValidator(QtGui.QDoubleValidator(notation=QtGui.QDoubleValidator.Notation.StandardNotation))           
             self.dlg.lineEdit_SVM_VBRaio.editingFinished.connect(self.lineEdit_SVM_VBRaio_EditingFinished)          
 
 

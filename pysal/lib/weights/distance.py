@@ -14,7 +14,7 @@ import numpy as np
 
 
 class Kernel(W):
-    """
+    r"""
     Spatial weights based on kernel functions.
 
     Parameters

@@ -742,7 +742,7 @@ class Moran_Rate(Moran):
 
         if isinstance(adjusted, bool):
             adjusted = [adjusted] * len(events)
-        if swapname is '':
+        if swapname == '':
             swapname = cls.__name__.lower()
 
         rates = [assuncao_rate(df[e], df[pop]) if adj
@@ -1409,7 +1409,7 @@ class Moran_Local_Rate(Moran_Local):
 
         if isinstance(adjusted, bool):
             adjusted = [adjusted] * len(events)
-        if swapname is '':
+        if swapname == '':
             swapname = cls.__name__.lower()
 
         rates = [assuncao_rate(df[e], df[pop]) if adj

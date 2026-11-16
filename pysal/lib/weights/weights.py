@@ -359,7 +359,7 @@ class W(object):
 
     @property
     def s0(self):
-        """s0 is defined as
+        r"""s0 is defined as
 
         .. math::
 
@@ -373,7 +373,7 @@ class W(object):
 
     @property
     def s1(self):
-        """s1 is defined as
+        r"""s1 is defined as
 
         .. math::
 
@@ -405,7 +405,7 @@ class W(object):
 
     @property
     def s2(self):
-        """s2 is defined as
+        r"""s2 is defined as
 
         .. math::
 
@@ -976,7 +976,7 @@ class W(object):
     transform = property(get_transform, set_transform)
 
     def asymmetry(self, intrinsic=True):
-        """
+        r"""
         Asymmetry check.
 
         Parameters

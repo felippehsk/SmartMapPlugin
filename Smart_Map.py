@@ -720,7 +720,7 @@ class smart_map:
             self.dlg.horizontalSlider_Sill.valueChanged.connect(self.horizontalSlider_Sill_valueChanged)
 
             self.dlg.horizontalSlider_Range.valueChanged.disconnect()
-            self.dlg.horizontalSlider_Range.setValue(0.001)
+            self.dlg.horizontalSlider_Range.setValue(1)  # 0.001 * 1000 (QSlider is int-only on Qt6)
             self.dlg.lineEdit_Range.setText('0.001')
             self.dlg.horizontalSlider_Range.valueChanged.connect(self.horizontalSlider_Range_valueChanged)
             
@@ -2681,9 +2681,9 @@ class smart_map:
                 #Nugget 
                 self.dlg.horizontalSlider_Nugget.valueChanged.disconnect()
 
-                self.dlg.horizontalSlider_Nugget.setMinimum(self.C0_Minimum*1000)                    #último valor de gamma (eixo y)       
-                self.dlg.horizontalSlider_Nugget.setMaximum(self.C0_Maximum*1000)                    #último valor de gamma (eixo y)       
-                self.dlg.horizontalSlider_Nugget.setValue(C0*1000)
+                self.dlg.horizontalSlider_Nugget.setMinimum(int(self.C0_Minimum*1000))                    #último valor de gamma (eixo y)       
+                self.dlg.horizontalSlider_Nugget.setMaximum(int(self.C0_Maximum*1000))                    #último valor de gamma (eixo y)       
+                self.dlg.horizontalSlider_Nugget.setValue(int(C0*1000))
 
                 self.dlg.lineEdit_Nugget.setText('%.3f' % C0)                                        #último valor de gamma (eixo y)       
         
@@ -2693,9 +2693,9 @@ class smart_map:
                 #Sill
                 self.dlg.horizontalSlider_Sill.valueChanged.disconnect()
         
-                self.dlg.horizontalSlider_Sill.setMinimum(self.C0_C_Minimum*1000)                    #último valor de gamma (eixo y)
-                self.dlg.horizontalSlider_Sill.setMaximum(self.C0_C_Maximum*1000)                    #último valor de gamma (eixo y)         
-                self.dlg.horizontalSlider_Sill.setValue(C0_C*1000)                                   #Patamar           (Co + C)           
+                self.dlg.horizontalSlider_Sill.setMinimum(int(self.C0_C_Minimum*1000))                    #último valor de gamma (eixo y)
+                self.dlg.horizontalSlider_Sill.setMaximum(int(self.C0_C_Maximum*1000))                    #último valor de gamma (eixo y)         
+                self.dlg.horizontalSlider_Sill.setValue(int(C0_C*1000))                                   #Patamar           (Co + C)           
 
                 self.dlg.lineEdit_Sill.setText('%.3f' % C0_C) 
         
@@ -2705,9 +2705,9 @@ class smart_map:
                 #Range 
                 self.dlg.horizontalSlider_Range.valueChanged.disconnect()
                 
-                self.dlg.horizontalSlider_Range.setMinimum(self.Range_Minimum*1000)                  #maxima distancia entre os pontos   
-                self.dlg.horizontalSlider_Range.setMaximum(self.Range_Maximum*1000)                  #maxima distancia entre os pontos   
-                self.dlg.horizontalSlider_Range.setValue(Range*1000)
+                self.dlg.horizontalSlider_Range.setMinimum(int(self.Range_Minimum*1000))                  #maxima distancia entre os pontos   
+                self.dlg.horizontalSlider_Range.setMaximum(int(self.Range_Maximum*1000))                  #maxima distancia entre os pontos   
+                self.dlg.horizontalSlider_Range.setValue(int(Range*1000))
                 
                 self.dlg.lineEdit_Range.setText('%.3f' % Range)                                      #alcance  efetivo  (A)       
                 
@@ -3036,11 +3036,11 @@ class smart_map:
         #Nugget 
         self.dlg.horizontalSlider_Nugget.valueChanged.disconnect()
 
-        self.dlg.horizontalSlider_Nugget.setMaximum((self.gamma[len(self.gamma)-1])*1000)           #último valor de gamma (eixo y)       
+        self.dlg.horizontalSlider_Nugget.setMaximum(int(self.gamma[len(self.gamma)-1]*1000))           #último valor de gamma (eixo y)       
         self.C0_Maximum = self.gamma[len(self.gamma)-1]                                             #último valor de gamma (eixo y)       
         self.C0_Minimum = 0
 
-        self.dlg.horizontalSlider_Nugget.setValue(Nugget*1000)
+        self.dlg.horizontalSlider_Nugget.setValue(int(Nugget*1000))
         self.dlg.lineEdit_Nugget.setText('%.3f'  % Nugget)                                          #último valor de gamma (eixo y)       
 
         self.dlg.horizontalSlider_Nugget.valueChanged.connect(self.horizontalSlider_Nugget_valueChanged)
@@ -3049,11 +3049,11 @@ class smart_map:
         #Range 
         self.dlg.horizontalSlider_Range.valueChanged.disconnect()
 
-        self.dlg.horizontalSlider_Range.setMaximum(Semiv.max_dist*1000)                             #maxima distancia entre os pontos   
+        self.dlg.horizontalSlider_Range.setMaximum(int(Semiv.max_dist*1000))                             #maxima distancia entre os pontos   
         self.Range_Maximum = Semiv.max_dist                                                         #último valor de gamma (eixo y)       
         self.Range_Minimum = 0.001
 
-        self.dlg.horizontalSlider_Range.setValue(Range*1000)
+        self.dlg.horizontalSlider_Range.setValue(int(Range*1000))
         self.dlg.lineEdit_Range.setText('%.3f'  % Range)                                            #último valor de gamma (eixo y)       
 
 
@@ -3069,11 +3069,11 @@ class smart_map:
         self.dlg.horizontalSlider_Sill.valueChanged.disconnect()
 
 
-        self.dlg.horizontalSlider_Sill.setMaximum(((self.gamma[len(self.gamma)-1])*3)*1000)         #último valor de gamma (eixo y)         
+        self.dlg.horizontalSlider_Sill.setMaximum(int(self.gamma[len(self.gamma)-1]*3*1000))         #último valor de gamma (eixo y)         
         self.C0_C_Maximum = (self.gamma[len(self.gamma)-1])*3                                       #último valor de gamma (eixo y)       
         self.C0_C_Minimum = 0 
 
-        self.dlg.horizontalSlider_Sill.setValue(Sill*1000)
+        self.dlg.horizontalSlider_Sill.setValue(int(Sill*1000))
         self.dlg.lineEdit_Sill.setText('%.3f'  % Sill)  
 
         self.dlg.horizontalSlider_Sill.valueChanged.connect(self.horizontalSlider_Sill_valueChanged)
@@ -3245,7 +3245,7 @@ class smart_map:
 
         self.dlg.horizontalSlider_Nugget.valueChanged.disconnect()
 
-        self.dlg.horizontalSlider_Nugget.setValue(value_Nugget*1000)
+        self.dlg.horizontalSlider_Nugget.setValue(int(value_Nugget*1000))
 
         self.dlg.horizontalSlider_Nugget.valueChanged.connect(self.horizontalSlider_Nugget_valueChanged)
 
@@ -3289,7 +3289,7 @@ class smart_map:
 
         self.dlg.horizontalSlider_Sill.valueChanged.disconnect()
 
-        self.dlg.horizontalSlider_Sill.setValue(value_Sill*1000)
+        self.dlg.horizontalSlider_Sill.setValue(int(value_Sill*1000))
 
         self.dlg.horizontalSlider_Sill.valueChanged.connect(self.horizontalSlider_Sill_valueChanged)
 
@@ -3333,7 +3333,7 @@ class smart_map:
 
         self.dlg.horizontalSlider_Range.valueChanged.disconnect()
 
-        self.dlg.horizontalSlider_Range.setValue(value_Range*1000)
+        self.dlg.horizontalSlider_Range.setValue(int(value_Range*1000))
 
         self.dlg.horizontalSlider_Range.valueChanged.connect(self.horizontalSlider_Range_valueChanged)
 
@@ -3874,9 +3874,9 @@ class smart_map:
                     #Nugget 
                     self.dlg.horizontalSlider_Nugget.valueChanged.disconnect()
 
-                    self.dlg.horizontalSlider_Nugget.setMinimum(self.C0_Minimum*1000)                    #último valor de gamma (eixo y)       
-                    self.dlg.horizontalSlider_Nugget.setMaximum(self.C0_Maximum*1000)                    #último valor de gamma (eixo y)       
-                    self.dlg.horizontalSlider_Nugget.setValue(C0*1000)
+                    self.dlg.horizontalSlider_Nugget.setMinimum(int(self.C0_Minimum*1000))                    #último valor de gamma (eixo y)       
+                    self.dlg.horizontalSlider_Nugget.setMaximum(int(self.C0_Maximum*1000))                    #último valor de gamma (eixo y)       
+                    self.dlg.horizontalSlider_Nugget.setValue(int(C0*1000))
 
                     self.dlg.lineEdit_Nugget.setText('%.3f'  % C0)                                       #último valor de gamma (eixo y)       
             
@@ -3886,9 +3886,9 @@ class smart_map:
                     #Sill
                     self.dlg.horizontalSlider_Sill.valueChanged.disconnect()
             
-                    self.dlg.horizontalSlider_Sill.setMinimum(self.C0_C_Minimum*1000)                    #último valor de gamma (eixo y)           
-                    self.dlg.horizontalSlider_Sill.setMaximum(self.C0_C_Maximum*1000)                    #último valor de gamma (eixo y)         
-                    self.dlg.horizontalSlider_Sill.setValue(C0_C*1000)                                   #Patamar           (Co + C)           
+                    self.dlg.horizontalSlider_Sill.setMinimum(int(self.C0_C_Minimum*1000))                    #último valor de gamma (eixo y)           
+                    self.dlg.horizontalSlider_Sill.setMaximum(int(self.C0_C_Maximum*1000))                    #último valor de gamma (eixo y)         
+                    self.dlg.horizontalSlider_Sill.setValue(int(C0_C*1000))                                   #Patamar           (Co + C)           
 
                     self.dlg.lineEdit_Sill.setText('%.3f'  % C0_C) 
             
@@ -3898,9 +3898,9 @@ class smart_map:
                     #Range 
                     self.dlg.horizontalSlider_Range.valueChanged.disconnect()
                     
-                    self.dlg.horizontalSlider_Range.setMinimum(self.Range_Minimum*1000)                  #minima distancia entre os pontos   
-                    self.dlg.horizontalSlider_Range.setMaximum(self.Range_Maximum*1000)                  #maxima distancia entre os pontos   
-                    self.dlg.horizontalSlider_Range.setValue(Range*1000)
+                    self.dlg.horizontalSlider_Range.setMinimum(int(self.Range_Minimum*1000))                  #minima distancia entre os pontos   
+                    self.dlg.horizontalSlider_Range.setMaximum(int(self.Range_Maximum*1000))                  #maxima distancia entre os pontos   
+                    self.dlg.horizontalSlider_Range.setValue(int(Range*1000))
                     
                     self.dlg.lineEdit_Range.setText('%.3f'  % Range)                                     #alcance  efetivo  (A)       
                     

@@ -193,6 +193,13 @@ def _exercise_qt6_dialog_apis(plugin):
             "QDoubleValidator not attached",
         )
 
+    # QSlider is int-only on Qt6 (plugin stores float params as value*1000).
+    if hasattr(dlg, "horizontalSlider_Range"):
+        dlg.horizontalSlider_Range.setValue(1)  # means 0.001
+        dlg.horizontalSlider_Range.setMinimum(0)
+        dlg.horizontalSlider_Range.setMaximum(int(10.5 * 1000))
+        _assert(dlg.horizontalSlider_Range.value() == 1, "slider int value mismatch")
+
 
 def _run_pipeline_smoke():
     """Exercise semivariogram, Ordinary Kriging, SVM, and fuzzy management zones."""

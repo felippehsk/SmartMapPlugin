@@ -1,116 +1,179 @@
 # Smart-Map
 
-## Descrição
+**Compatible with QGIS 3.10+ and QGIS 4** (tested on QGIS 4.2 / Windows 11).
 
-Plugin para QGIS 3.10.x 64 bits que possibilita a predição e o mapeamento de atributos do solo. 
-Permite a interpolação dos dados utilizando Krigagem Ordinária e técnicas de Machine Learning. Neste plugin foi implementado o Support Vector Machine (SVM). 
-Possibilita a interação com o QGIS a partir de layers (Shapefile e GeoTIFF). 
-O principal objetivo desse plugin é fornecer uma plataforma livre e open source, aliada às funções já existentes no QGIS. 
-Disponível para os Sistemas Operacionais Windows, Linux e Mac tendo como única dependência o QGIS 3.10.x 64 bits instalado.
-Desenvolvido em Python 3, o plugin utiliza alguns pacotes já incorporados ao seu código como: [scikit-learn](https://github.com/scikit-learn/scikit-learn), [scikit-fuzzy](https://github.com/scikit-fuzzy/scikit-fuzzy), [pysal](https://github.com/pysal) e [pyKrige](https://github.com/GeoStat-Framework/PyKrige).
+Open-source QGIS plugin for soil attribute prediction and mapping. It supports:
 
+- Ordinary Kriging interpolation
+- Machine Learning with Support Vector Machine (SVM)
+- Management zone generation
+- Interaction with QGIS layers (Shapefile, GeoTIFF, and related formats)
 
-## Como citar o artigo que descreve o software:
+Built in Python 3. Runtime libraries such as [scikit-learn](https://github.com/scikit-learn/scikit-learn), [scikit-fuzzy](https://github.com/scikit-fuzzy/scikit-fuzzy), and [pysal](https://github.com/pysal) are either bundled or installed automatically on first load.
+
+---
+
+## Cite this software
+
 Pereira, G.W.; Valente, D.S.M.; Queiroz, D.M.d.; Coelho, A.L.d.F.; Costa, M.M.; Grift, T. [Smart-Map: An Open-Source QGIS Plugin for Digital Mapping Using Machine Learning Techniques and Ordinary Kriging. Agronomy 2022, 12, 1350.](https://www.mdpi.com/2073-4395/12/6/1350/htm) https://doi.org/10.3390/agronomy12061350
 
-## Como Instalar
+---
 
-### Dependências 
+## Install (recommended)
 
-#### Windows
+### Install from ZIP (QGIS 3 or QGIS 4)
 
-O Plugin tentará instalar a biblioteca scikit-learn automaticamente, mas caso ocorra alguma falha, 
-abra o OSGeo4W Shell como administrador na pasta de atalhos do QGIS e digite os seguintes comandos:
+1. Download **`Smart_Map.zip`** from the latest [GitHub Release](https://github.com/felippehsk/SmartMapPlugin/releases).
+2. In QGIS open **Plugins → Manage and Install Plugins → Install from ZIP**.
+3. Select `Smart_Map.zip` and install.
+4. Enable **Smart-Map** in the plugin list.
+5. Restart QGIS if prompted after dependency installation.
 
-`python -m pip install scikit-learn`
+On first load, missing Python packages (for example `scikit-learn`) are installed automatically into the writable QGIS user profile. The Windows QGIS 4 package includes offline wheels for Python 3.12.
 
-Se tiver algum erro do tipo: "PermissionError: [WinError 5] Access is denied", tente abrir o OsGeo Shell como administrador.
+### Plugin repository
 
-#### Linux e MacOS
+You can also search for **Smart-Map** in **Plugins → Manage and Install Plugins → All** when the plugin is published in the official QGIS plugin repository.
 
-No QGIS abra o Terminal Python e verifique se as bibliotecas python: scipy, pandas e sklearn estão instaladas.
-Para verificar utilize os seguintes comandos:
+---
 
-`import pandas`
+## Dependencies
 
-`import scipy`
+**Requirements:** QGIS **3.10 or newer**, including **QGIS 4.x**, 64-bit.
 
-`import sklearn`
+| Package | Notes |
+|---------|--------|
+| numpy, scipy, pandas, matplotlib | Usually already included with QGIS |
+| scikit-learn | Auto-installed on first load (bundled wheels on Windows QGIS 4) |
+| skfuzzy / pysal pieces | Vendored with the plugin |
 
-Para cada linha de comando, digite o comando e tecle enter. Se ocorrer o erro: ModuleNotFoundError, ao tentar importar a biblioteca faça a instalação 
-através do terminal Linux/MacOS ou pelo OsGeo Shell do QGIS. 
-
-No terminal Linux ou MacOS utilize os seguintes comandos para instalar as bibliotecas python: 
-
-Para instalar a biblioteca pandas: `python -m pip install pandas` ou `pip3 install pandas`
-
-Para instalar a biblioteca scipy: `python -m pip install scipy` ou `pip3 install scipy`
-
-Para instalar a biblioteca sklearn: `python -m pip install scikit-learn` ou `pip3 install scikit-learn`
-
-Caso estes comandos não funcionem, verifique qual é a sua distribuição Linux ou MacOS e pesquise na internet como instalar bibliotecas python no Linux ou MacOS. 
-
-### Instalação Ideal
+### If automatic install fails
 
 #### Windows
 
-Procure pelo nome Smart-Map no repositório oficial do Qgis (Plugins -> Intalar plugins) e clique em instalar.  
+Open **OSGeo4W Shell** / QGIS command prompt and run:
 
-#### Linux e MacOs
+```bat
+python-qgis.bat -m pip install scikit-learn
+```
 
-Antes de procurar no repositório oficial do QGIS, certifique-se que as bibliotecas python: scipy, pandas e sklearn estão instaladas.
-Siga as instruções descritas acima, em como instalar dependencias para Linux e MacOS. 
-Após certificar que as bibliotecas estão instaladas, procure pelo nome Smart-Map no repositório oficial do Qgis (Plugins -> Intalar plugins) e clique em instalar.  
+If you see `PermissionError`, run the shell as Administrator, or install into the user profile (the plugin’s auto-installer already prefers a writable user folder).
 
-### Instalação Manual
+#### Linux / macOS
 
-1.	Baixe o arquivo Smart_Map.zip na página de [releases](https://github.com/gustavowillam/SmartMapPlugin/releases)
-2.	Abra o Qgis 3, entre no menu Plugins->Manage and Install Plugins->Install From Zip File
-3.	Na linha zip file, clique no botão "..." e escolha o arquivo zip baixado do plugin.
+In the QGIS Python Console, check:
 
-## Manual de Utilização 
+```python
+import pandas
+import scipy
+import sklearn
+```
 
-Um tutorial simplificado de como usar esse complemento: [Wiki](https://github.com/gustavowillam/SmartMapPlugin/wiki)
+If any import fails, install with the same Python used by QGIS, for example:
 
-## Reportar erros ou bugs
+```bash
+python3 -m pip install --user scikit-learn pandas scipy
+```
 
-Caso você queira reportar algum erro não se esqueça de:
+---
 
-1.	Caso haja uma janela de erro python, copie todo o conteúdo dela
-2.	Verifique no painel de logs do QGIS, que pode ser acessado no canto inferior direito do programa, as abas python error e Smart-map e copie todos os logs que existirem lá.
-3.	Informe exatamente os passos que você fez e verifique se o erro continua acontecendo se você reiniciar o plugin, reinstalar, fechar abrir, etc...
-4.	Diga o que aconteceu e o que você esperava acontecer.
-5.	Se possível envie seu arquivo de projeto (zip e qgis) com as layers.
+## User guide
 
-Para reportar algum erro use a página [issues](https://github.com/gustavowillam/SmartMapPlugin/issues). 
+Simplified tutorial: [Wiki](https://github.com/gustavowillam/SmartMapPlugin/wiki)
 
+---
 
-## QGIS
+## Report bugs
 
-QGIS (anteriormente conhecido como Quantum GIS) é um software livre com código-fonte aberto, multiplataforma de sistema de informação geográfica (SIG) que permite a visualização, edição e análise de dados georreferenciados.
+When reporting an issue, please include:
 
-[Download](https://www.qgis.org/pt_BR/site/forusers/download.html#windows)- Qgis 3 for Windows 64 bits
+1. The full Python error dialog text (if shown)
+2. Logs from the QGIS Log Messages panel (`Python Error` and `Smart-Map` tabs)
+3. Exact steps to reproduce, and whether restarting/reinstalling changes the result
+4. What happened vs what you expected
+5. A sample project/layers if possible
 
-[Download](https://qgis.org/en/site/forusers/alldownloads.html#debian-ubuntu)- Qgis 3 for Linux Debian/Ubuntu
+Open an issue at: [Issues](https://github.com/felippehsk/SmartMapPlugin/issues)
 
-[Download](https://qgis.org/en/site/forusers/download.html)- Other Downloads
+---
 
-## Links and Resources
+## QGIS downloads
 
-[Qgis](https://www.qgis.org/) - A Free and Open Source Geographic Information System
-[Python3](https://www.python.org/) - Python is a programming language that lets you work quickly and integrate systems more effectively
+- [QGIS for Windows](https://qgis.org/download/)
+- [QGIS for Linux / macOS / other](https://qgis.org/download/)
 
-## Documentação:
+---
 
-[Python3](https://www.python.org/)
+## Documentation / APIs
 
-[Qt5 API](https://doc.qt.io/qt-5)
+- [Python](https://www.python.org/)
+- [Qt documentation](https://doc.qt.io/)
+- [PyQGIS API](https://qgis.org/pyqgis/)
+- [PyQGIS developer cookbook](https://docs.qgis.org/latest/en/docs/pyqgis_developer_cookbook/index.html)
 
-[Qgis 3.10.x python API](https://qgis.org/pyqgis/master/)
+---
 
-[PyQGIS developer cookbook](https://docs.qgis.org/3.10/en/docs/pyqgis_developer_cookbook/index.html)
+## License (GPL-3.0)
 
-## Licença  GPL 3
+This program is free software; you can redistribute it and/or modify it under the terms of the [GNU General Public License](https://www.gnu.org/licenses/gpl-3.0.html) as published by the Free Software Foundation; either version 3 of the License, or (at your option) any later version.
 
-This program is free software; you can redistribute it and/or modify it under the terms of the [GNU General Public License](https://www.gnu.org/licenses/gpl-3.0.pt-br.html) as published by the Free Software Foundation; 
-either version 3 of the License, or (at your option) any later version.
+---
+
+# Smart-Map (Português)
+
+**Compatível com QGIS 3.10+ e QGIS 4** (testado no QGIS 4.2 / Windows 11).
+
+Plugin open source para QGIS voltado à predição e ao mapeamento de atributos do solo. Permite:
+
+- Interpolação por Krigagem Ordinária
+- Machine Learning com Support Vector Machine (SVM)
+- Geração de zonas de manejo
+- Integração com layers do QGIS (Shapefile, GeoTIFF e formatos relacionados)
+
+Desenvolvido em Python 3. Bibliotecas como [scikit-learn](https://github.com/scikit-learn/scikit-learn), [scikit-fuzzy](https://github.com/scikit-fuzzy/scikit-fuzzy) e [pysal](https://github.com/pysal) vêm embutidas ou são instaladas automaticamente na primeira execução.
+
+## Como citar
+
+Pereira, G.W.; Valente, D.S.M.; Queiroz, D.M.d.; Coelho, A.L.d.F.; Costa, M.M.; Grift, T. [Smart-Map: An Open-Source QGIS Plugin for Digital Mapping Using Machine Learning Techniques and Ordinary Kriging. Agronomy 2022, 12, 1350.](https://www.mdpi.com/2073-4395/12/6/1350/htm) https://doi.org/10.3390/agronomy12061350
+
+## Instalação (recomendada)
+
+### Instalar a partir de ZIP (QGIS 3 ou QGIS 4)
+
+1. Baixe o arquivo **`Smart_Map.zip`** na página de [Releases](https://github.com/felippehsk/SmartMapPlugin/releases).
+2. No QGIS, abra **Plugins → Gerenciar e Instalar Complementos → Instalar a partir de ZIP**.
+3. Selecione `Smart_Map.zip` e instale.
+4. Ative o complemento **Smart-Map**.
+5. Reinicie o QGIS se for solicitado após a instalação de dependências.
+
+Na primeira execução, pacotes Python ausentes (por exemplo `scikit-learn`) são instalados automaticamente no perfil do usuário do QGIS. O pacote para Windows / QGIS 4 inclui wheels offline para Python 3.12.
+
+### Repositório de plugins
+
+Também é possível buscar por **Smart-Map** em **Plugins → Gerenciar e Instalar Complementos → Todos**, quando o plugin estiver publicado no repositório oficial do QGIS.
+
+## Dependências
+
+**Requisito:** QGIS **3.10 ou superior**, incluindo **QGIS 4.x**, 64 bits.
+
+Se a instalação automática falhar no Windows, abra o **OSGeo4W Shell** / prompt do QGIS e execute:
+
+```bat
+python-qgis.bat -m pip install scikit-learn
+```
+
+No Linux/macOS, confira no Console Python do QGIS se `pandas`, `scipy` e `sklearn` importam corretamente e, se necessário, instale-os com o Python do próprio QGIS.
+
+## Manual de utilização
+
+Tutorial simplificado: [Wiki](https://github.com/gustavowillam/SmartMapPlugin/wiki)
+
+## Reportar erros
+
+Inclua a mensagem completa de erro Python, os logs do painel de mensagens do QGIS (abas `Python Error` e `Smart-Map`), os passos para reproduzir o problema e, se possível, um projeto de exemplo.
+
+Abra uma issue em: [Issues](https://github.com/felippehsk/SmartMapPlugin/issues)
+
+## Licença (GPL-3.0)
+
+Este programa é software livre; você pode redistribuí-lo e/ou modificá-lo sob os termos da [GNU General Public License](https://www.gnu.org/licenses/gpl-3.0.pt-br.html) da Free Software Foundation; versão 3 da Licença, ou (a seu critério) qualquer versão posterior.

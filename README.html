@@ -1,42 +1,39 @@
 <html>
 <body>
-<h3>Plugin Builder Results</h3>
-
-Congratulations! You just built a plugin for QGIS!<br/><br />
-
-<div id='help' style='font-size:.9em;'>
-Your plugin <b>Smart-Map</b> was created in:<br>
-&nbsp;&nbsp;<b>C:\Users\Gustavo\AppData\Roaming\QGIS\QGIS3\profiles\default\python\plugins\main</b>
+<h1>Smart-Map</h1>
+<p><b>Compatible with QGIS 3.10+ and QGIS 4</b> (tested on QGIS 4.2 / Windows 11).</p>
 <p>
-Your QGIS plugin directory is located at:<br>
-&nbsp;&nbsp;<b>C:/Users/Gustavo/AppData/Roaming/QGIS/QGIS3/profiles/default/python/plugins</b>
-<p>
-<h3>What's Next</h3>
-<ol>
-    <li>If resources.py is not present in your plugin directory, compile the resources file using pyrcc5 (simply use <b>pb_tool</b> or <b>make</b> if you have automake)
-    <li>Optionally, test the generated sources using <b>make test</b> (or run tests from your IDE)
-    <li>Copy the entire directory containing your new plugin to the QGIS plugin directory (see Notes below)
-    <li>Test the plugin by enabling it in the QGIS plugin manager
-    <li>Customize it by editing the implementation file <b>Smart_Map.py</b>
-    <li>Create your own custom icon, replacing the default <b>icon.png</b>
-    <li>Modify your user interface by opening <b>Smart_Map_Dialog.ui</b> in Qt Designer
-</ol>
-Notes:
-<ul>
-    <li>You can use <b>pb_tool</b> to compile, deploy, and manage your plugin. Tweak the <i>pb_tool.cfg</i> file included with your plugin as you add files. Install <b>pb_tool</b> using 
-        <i>pip</i> or <i>easy_install</i>. See <b>http://loc8.cc/pb_tool</b> for more information.
-    <li>You can also use the <b>Makefile</b> to compile and deploy when you
-        make changes. This requires GNU make (gmake). The Makefile is ready to use, however you 
-        will have to edit it to add addional Python source files, dialogs, and translations.
-</ul>
-</div>
-<div style='font-size:.9em;'>
-<p>
-For information on writing PyQGIS code, see <b>http://loc8.cc/pyqgis_resources</b> for a list of resources.
+  Open-source QGIS plugin for soil attribute mapping with Ordinary Kriging,
+  Support Vector Machine (SVM) interpolation, and management zones.
 </p>
-</div>
+
+<h2>Install from ZIP</h2>
+<ol>
+  <li>Download <b>Smart_Map.zip</b> from the
+    <a href="https://github.com/felippehsk/SmartMapPlugin/releases">GitHub Releases</a> page.</li>
+  <li>In QGIS open <b>Plugins → Manage and Install Plugins → Install from ZIP</b>.</li>
+  <li>Select <code>Smart_Map.zip</code>, install, and enable <b>Smart-Map</b>.</li>
+</ol>
 <p>
-&copy;2011-2019 GeoApt LLC - geoapt.com 
+  On first load, missing Python packages (for example <code>scikit-learn</code>)
+  are installed automatically into the writable QGIS user profile.
+</p>
+
+<h2>Português</h2>
+<p><b>Compatível com QGIS 3.10+ e QGIS 4.</b></p>
+<ol>
+  <li>Baixe <b>Smart_Map.zip</b> em
+    <a href="https://github.com/felippehsk/SmartMapPlugin/releases">Releases</a>.</li>
+  <li>No QGIS: <b>Plugins → Gerenciar e Instalar Complementos → Instalar a partir de ZIP</b>.</li>
+  <li>Selecione o ZIP, instale e ative o <b>Smart-Map</b>.</li>
+</ol>
+
+<p>
+  Full documentation:
+  <a href="https://github.com/felippehsk/SmartMapPlugin/blob/master/README.md">README.md</a><br/>
+  Issues:
+  <a href="https://github.com/felippehsk/SmartMapPlugin/issues">GitHub Issues</a><br/>
+  License: GPL-3.0
 </p>
 </body>
 </html>

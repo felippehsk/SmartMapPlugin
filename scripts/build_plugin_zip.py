@@ -39,6 +39,9 @@ INCLUDE_FILES = [
     'icon_bra.png',
     'icon_usa.png',
     'LICENSE.txt',
+    'README.md',
+    'README.txt',
+    'README.html',
     'sklearn37.zip',
     'sklearn39.zip',
 ]

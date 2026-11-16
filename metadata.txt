@@ -6,27 +6,27 @@
 name=Smart-Map
 qgisMinimumVersion=3.10
 qgisMaximumVersion=4.99
-description=Interpolation using Ordinary Kriging and Machine Learning (Support Vector Machine). Generate Management Zones.
+description=QGIS 3 & 4 plugin for Ordinary Kriging, SVM interpolation, and management zones.
 version=1.2.1
 author=Gustavo Willam Pereira (IFSUDESTE-MG);Domingos Sárvio Magalhães Valente (UFV);Daniel Marçal de Queiroz (UFV);André Luiz de Freitas Coelho (UFV);Sandro Manuel Carmelino Hurtado (UFU)
 email=gustavowillam@gmail.com
 
-about=This Plugin allows the user to import data from a QGIS Layer. Generate the experimental semivariogram and theoretical semivariograms such as: Linear, Spherical, Exponential and Gaussian. Generate the interpolation using the Ordinary Kriging and Machine Learning method. Generate management zones. On first load, missing Python packages (e.g. scikit-learn) are installed automatically into the QGIS user environment (bundled wheels when present, otherwise PyPI).
+about=Smart-Map works on QGIS 3.10+ and QGIS 4. Import soil sample layers, build experimental and theoretical semivariograms (Linear, Spherical, Exponential, Gaussian), interpolate with Ordinary Kriging or Support Vector Machine (SVM), and generate management zones. On first load, missing Python packages (e.g. scikit-learn) are installed automatically into the QGIS user profile (bundled Windows wheels when present, otherwise PyPI).
 
-tracker=https://github.com/gustavowillam/SmartMapPlugin
-repository=https://github.com/gustavowillam/SmartMapPlugin
+tracker=https://github.com/felippehsk/SmartMapPlugin/issues
+repository=https://github.com/felippehsk/SmartMapPlugin
 # End of mandatory metadata
 
 # Recommended items:
 
 hasProcessingProvider=no
-# Uncomment the following line and add your changelog:
-# changelog=
+changelog=1.2.1 - QGIS 4 / Qt 6 support; Install-from-ZIP package; automatic dependency bootstrap (incl. cloudpickle/joblib helpers)
+    1.1 - QGIS 3 plugin release
 
 # Tags are comma separated with spaces allowed
-tags=python
+tags=python, qgis4, kriging, interpolation, svm, machine learning, management zones, precision agriculture
 
-homepage=https://github.com/gustavowillam/SmartMapPlugin
+homepage=https://github.com/felippehsk/SmartMapPlugin
 category=Plugins
 icon=icon.png
 # experimental flag
@@ -45,4 +45,3 @@ Category of the plugin: Raster, Vector, Database or Web
 
 # If the plugin can run on QGIS Server.
 server=False
-

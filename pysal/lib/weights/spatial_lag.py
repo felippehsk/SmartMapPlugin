@@ -163,7 +163,7 @@ def lag_categorical(w, y, ties='tryself'):
     y = y.flatten()
     output = np.zeros_like(y)
     labels = np.unique(y)
-    normalized_labels = np.zeros(y.shape, dtype=np.int)
+    normalized_labels = np.zeros(y.shape, dtype=np.int_)
     for i,label in enumerate(labels):
        normalized_labels[y == label] = i
     for focal_name,neighbors in w:

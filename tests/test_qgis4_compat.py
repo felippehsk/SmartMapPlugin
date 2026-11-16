@@ -132,6 +132,9 @@ def test_plugin_load_and_ui():
         _assert(plugin.dlg is not None, "plugin.dlg is None")
         print("PASS plugin.dlg present")
 
+        _exercise_qt6_dialog_apis(plugin)
+        print("PASS Qt6 dialog / progress / item-flag APIs")
+
         _run_pipeline_smoke()
         print("PASS mathematical / interpolation pipeline smoke")
 
@@ -145,6 +148,37 @@ def test_plugin_load_and_ui():
                 raise
         QgsApplication.exitQgis()
         print("PASS exitQgis()")
+
+
+def _exercise_qt6_dialog_apis(plugin):
+    """Exercise the Qt APIs used when opening the main dialog (run())."""
+    from qgis.PyQt import QtCore, QtWidgets
+    from qgis.PyQt.QtWidgets import QProgressDialog, QTableWidgetItem
+
+    dlg = plugin.dlg
+    dlg.setWindowFlag(QtCore.Qt.WindowType.WindowMinimizeButtonHint, True)
+    dlg.setFixedSize(dlg.size())
+
+    progress = QProgressDialog("Smart-Map test", None, 0, 100)
+    progress.setWindowModality(QtCore.Qt.WindowModality.WindowModal)
+    progress.setValue(1)
+    progress.close()
+
+    item = QTableWidgetItem("test")
+    item.setFlags(
+        QtCore.Qt.ItemFlag.ItemIsUserCheckable | QtCore.Qt.ItemFlag.ItemIsEnabled
+    )
+    item.setCheckState(QtCore.Qt.CheckState.Unchecked)
+    _assert(
+        item.checkState() == QtCore.Qt.CheckState.Unchecked,
+        "checkbox item state mismatch",
+    )
+
+    # Tables in the .ui must accept NoEditTriggers under Qt6.
+    if hasattr(dlg, "datatable_atributos"):
+        dlg.datatable_atributos.setEditTriggers(
+            QtWidgets.QAbstractItemView.EditTrigger.NoEditTriggers
+        )
 
 
 def _run_pipeline_smoke():

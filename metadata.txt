@@ -7,7 +7,7 @@ name=Smart-Map
 qgisMinimumVersion=3.10
 qgisMaximumVersion=4.99
 description=QGIS 3 & 4 plugin for Ordinary Kriging, SVM interpolation, and management zones.
-version=1.2.1
+version=1.2.2
 author=Gustavo Willam Pereira (IFSUDESTE-MG);Domingos Sárvio Magalhães Valente (UFV);Daniel Marçal de Queiroz (UFV);André Luiz de Freitas Coelho (UFV);Sandro Manuel Carmelino Hurtado (UFU)
 email=gustavowillam@gmail.com
 
@@ -20,7 +20,8 @@ repository=https://github.com/felippehsk/SmartMapPlugin
 # Recommended items:
 
 hasProcessingProvider=no
-changelog=1.2.1 - QGIS 4 / Qt 6 support; Install-from-ZIP package; automatic dependency bootstrap (incl. cloudpickle/joblib helpers)
+changelog=1.2.2 - Fix remaining Qt6 scoped enums (window flags, modality, item flags) used when opening the dialog
+    1.2.1 - QGIS 4 / Qt 6 support; Install-from-ZIP package; automatic dependency bootstrap (incl. cloudpickle/joblib helpers)
     1.1 - QGIS 3 plugin release
 
 # Tags are comma separated with spaces allowed

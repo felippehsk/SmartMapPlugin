@@ -141,10 +141,10 @@ type: pip install pysal==2.0           // to install pysal -> Calculate Índex o
 
 # Handle high resolution displays:
 if hasattr(QtCore.Qt, 'AA_EnableHighDpiScaling'):
-   QtWidgets.QApplication.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling, True)
+   pass  # AA_EnableHighDpiScaling removed in Qt6; no-op when missing
    
 if hasattr(QtCore.Qt, 'AA_UseHighDpiPixmaps'):
-   QtWidgets.QApplication.setAttribute(QtCore.Qt.AA_UseHighDpiPixmaps, True)
+   pass  # AA_UseHighDpiPixmaps removed in Qt6; no-op when missing
 
 
 
@@ -464,7 +464,7 @@ class smart_map:
                 
             self.dlg.closeEvent = self.closeEvent                                                                       #closing the plugin on the button 'x' 
     
-            self.dlg.setWindowFlag(QtCore.Qt.WindowMinimizeButtonHint, True)                                            #display option to minimize   QDialog
+            self.dlg.setWindowFlag(QtCore.Qt.WindowType.WindowMinimizeButtonHint, True)                                            #display option to minimize   QDialog
             self.dlg.setFixedSize(self.dlg.size())                                                                      #fix interface size           QDialog 
             self.dlg.setWindowIcon(QtGui.QIcon(self.icon_path))
 
@@ -1085,9 +1085,9 @@ class smart_map:
         progress.setWindowTitle('Smart-Map')
         progress.show() 
         progress.setCancelButton(None)                                         #remove button cancel 
-        #progress.setWindowFlag(QtCore.Qt.WindowCloseButtonHint, False)        #disable button 'X' 
-        progress.setWindowModality(QtCore.Qt.WindowModal)                      #modal for parent form 
-        #progress.setWindowModality(QtCore.Qt.ApplicationModal)                #modal for application 
+        #progress.setWindowFlag(QtCore.Qt.WindowType.WindowCloseButtonHint, False)        #disable button 'X' 
+        progress.setWindowModality(QtCore.Qt.WindowModality.WindowModal)                      #modal for parent form 
+        #progress.setWindowModality(QtCore.Qt.WindowModality.ApplicationModal)                #modal for application 
         time.sleep(0.1)
 
         for feat in range(len(cols)-3):                                        #-3 -> to discard coluns: CoordX_SM, CoordY_SM, ID_SM
@@ -1169,9 +1169,9 @@ class smart_map:
         progress.setWindowTitle('Smart-Map')
         progress.show() 
         progress.setCancelButton(None)                                     #remove button cancel 
-        #progress.setWindowFlag(QtCore.Qt.WindowCloseButtonHint, False)    #disable button 'X' 
-        progress.setWindowModality(QtCore.Qt.WindowModal)                  #modal for parent form 
-        #progress.setWindowModality(QtCore.Qt.ApplicationModal)            #modal for application 
+        #progress.setWindowFlag(QtCore.Qt.WindowType.WindowCloseButtonHint, False)    #disable button 'X' 
+        progress.setWindowModality(QtCore.Qt.WindowModality.WindowModal)                  #modal for parent form 
+        #progress.setWindowModality(QtCore.Qt.WindowModality.ApplicationModal)            #modal for application 
         time.sleep(0.1)
 
         self.dlg.datatable_atributos.setColumnCount(len(df1.columns))
@@ -1250,9 +1250,9 @@ class smart_map:
         progress.setWindowTitle('Smart-Map')
         progress.show() 
         progress.setCancelButton(None)                                     #remove button cancel 
-        #progress.setWindowFlag(QtCore.Qt.WindowCloseButtonHint, False)    #disable button 'X' 
-        progress.setWindowModality(QtCore.Qt.WindowModal)                  #modal for parent form 
-        #progress.setWindowModality(QtCore.Qt.ApplicationModal)            #modal for application 
+        #progress.setWindowFlag(QtCore.Qt.WindowType.WindowCloseButtonHint, False)    #disable button 'X' 
+        progress.setWindowModality(QtCore.Qt.WindowModality.WindowModal)                  #modal for parent form 
+        #progress.setWindowModality(QtCore.Qt.WindowModality.ApplicationModal)            #modal for application 
         time.sleep(0.1)
         
         
@@ -1323,9 +1323,9 @@ class smart_map:
         progress.setWindowTitle('Smart-Map')
         progress.show() 
         progress.setCancelButton(None)                                     #remove button cancel 
-        #progress.setWindowFlag(QtCore.Qt.WindowCloseButtonHint, False)    #disable button 'X' 
-        progress.setWindowModality(QtCore.Qt.WindowModal)                  #modal for parent form 
-        #progress.setWindowModality(QtCore.Qt.ApplicationModal)            #modal for application 
+        #progress.setWindowFlag(QtCore.Qt.WindowType.WindowCloseButtonHint, False)    #disable button 'X' 
+        progress.setWindowModality(QtCore.Qt.WindowModality.WindowModal)                  #modal for parent form 
+        #progress.setWindowModality(QtCore.Qt.WindowModality.ApplicationModal)            #modal for application 
         time.sleep(0.1)
         
 
@@ -1459,9 +1459,9 @@ class smart_map:
                     progress.setWindowTitle('Smart-Map')
                     progress.show() 
                     progress.setCancelButton(None)                                     #remove button cancel 
-                    #progress.setWindowFlag(QtCore.Qt.WindowCloseButtonHint, False)    #disable button 'X' 
-                    progress.setWindowModality(QtCore.Qt.WindowModal)                  #modal for parent form 
-                    #progress.setWindowModality(QtCore.Qt.ApplicationModal)            #modal for application 
+                    #progress.setWindowFlag(QtCore.Qt.WindowType.WindowCloseButtonHint, False)    #disable button 'X' 
+                    progress.setWindowModality(QtCore.Qt.WindowModality.WindowModal)                  #modal for parent form 
+                    #progress.setWindowModality(QtCore.Qt.WindowModality.ApplicationModal)            #modal for application 
                     time.sleep(0.1)
                     
                     progress.setMinimumDuration(1000) #1000ms  ==  1s 
@@ -1494,9 +1494,9 @@ class smart_map:
                         progress.setWindowTitle('Smart-Map')
                         progress.show() 
                         progress.setCancelButton(None)                                     #remove button cancel 
-                        #progress.setWindowFlag(QtCore.Qt.WindowCloseButtonHint, False)    #disable button 'X' 
-                        progress.setWindowModality(QtCore.Qt.WindowModal)                  #modal for parent form 
-                        #progress.setWindowModality(QtCore.Qt.ApplicationModal)            #modal for application 
+                        #progress.setWindowFlag(QtCore.Qt.WindowType.WindowCloseButtonHint, False)    #disable button 'X' 
+                        progress.setWindowModality(QtCore.Qt.WindowModality.WindowModal)                  #modal for parent form 
+                        #progress.setWindowModality(QtCore.Qt.WindowModality.ApplicationModal)            #modal for application 
                         time.sleep(0.1)
         
                         
@@ -2542,7 +2542,7 @@ class smart_map:
 
                     
                     chkBoxItem = QTableWidgetItem()
-                    chkBoxItem.setFlags(QtCore.Qt.ItemIsUserCheckable | QtCore.Qt.ItemIsEnabled)
+                    chkBoxItem.setFlags(QtCore.Qt.ItemFlag.ItemIsUserCheckable | QtCore.Qt.ItemFlag.ItemIsEnabled)
                     chkBoxItem.setCheckState(QtCore.Qt.CheckState.Unchecked)       
                     self.dlg.datatable_semivariogramas.setItem(i,0,chkBoxItem)           
 
@@ -3542,9 +3542,9 @@ class smart_map:
             progress.setWindowTitle('Smart-Map')
             progress.show() 
             progress.setCancelButton(None)                                     #remove button cancel 
-            #progress.setWindowFlag(QtCore.Qt.WindowCloseButtonHint, False)    #disable button 'X' 
-            progress.setWindowModality(QtCore.Qt.WindowModal)                  #modal for parent form 
-            #progress.setWindowModality(QtCore.Qt.ApplicationModal)            #modal for application 
+            #progress.setWindowFlag(QtCore.Qt.WindowType.WindowCloseButtonHint, False)    #disable button 'X' 
+            progress.setWindowModality(QtCore.Qt.WindowModality.WindowModal)                  #modal for parent form 
+            #progress.setWindowModality(QtCore.Qt.WindowModality.ApplicationModal)            #modal for application 
             time.sleep(0.1)
 
             cont = 1 
@@ -3979,9 +3979,9 @@ class smart_map:
             progress.setWindowTitle('Smart-Map')
             progress.show() 
             progress.setCancelButton(None)                                     #remove button cancel 
-            #progress.setWindowFlag(QtCore.Qt.WindowCloseButtonHint, False)    #disable button 'X' 
-            progress.setWindowModality(QtCore.Qt.WindowModal)                  #modal for parent form 
-            #progress.setWindowModality(QtCore.Qt.ApplicationModal)            #modal for application 
+            #progress.setWindowFlag(QtCore.Qt.WindowType.WindowCloseButtonHint, False)    #disable button 'X' 
+            progress.setWindowModality(QtCore.Qt.WindowModality.WindowModal)                  #modal for parent form 
+            #progress.setWindowModality(QtCore.Qt.WindowModality.ApplicationModal)            #modal for application 
             time.sleep(0.1)
 
 
@@ -4450,7 +4450,7 @@ class smart_map:
                 if use_check == True: 
 
                     chkBoxItem = QTableWidgetItem()
-                    chkBoxItem.setFlags(QtCore.Qt.ItemIsUserCheckable | QtCore.Qt.ItemIsEnabled)
+                    chkBoxItem.setFlags(QtCore.Qt.ItemFlag.ItemIsUserCheckable | QtCore.Qt.ItemFlag.ItemIsEnabled)
                     chkBoxItem.setCheckState(QtCore.Qt.CheckState.Unchecked)       
                     self.dlg.datatable_moran.setItem(i,0,chkBoxItem)           
 
@@ -4500,9 +4500,9 @@ class smart_map:
             progress.setWindowTitle('Smart-Map')
             progress.show() 
             progress.setCancelButton(None)                                     #remove button cancel 
-            #progress.setWindowFlag(QtCore.Qt.WindowCloseButtonHint, False)    #disable button 'X' 
-            progress.setWindowModality(QtCore.Qt.WindowModal)                  #modal for parent form 
-            #progress.setWindowModality(QtCore.Qt.ApplicationModal)            #modal for application 
+            #progress.setWindowFlag(QtCore.Qt.WindowType.WindowCloseButtonHint, False)    #disable button 'X' 
+            progress.setWindowModality(QtCore.Qt.WindowModality.WindowModal)                  #modal for parent form 
+            #progress.setWindowModality(QtCore.Qt.WindowModality.ApplicationModal)            #modal for application 
             time.sleep(5)
 
             filename = os.path.join(self.path_absolute , '0_Dados.csv')  
@@ -4670,9 +4670,9 @@ class smart_map:
                 progress.setWindowTitle('Smart-Map')
                 progress.show() 
                 progress.setCancelButton(None)                                 #remove button cancel 
-                #progress.setWindowFlag(QtCore.Qt.WindowCloseButtonHint, False)#disable button 'X' 
-                progress.setWindowModality(QtCore.Qt.WindowModal)              #modal for parent form 
-                #progress.setWindowModality(QtCore.Qt.ApplicationModal)        #modal for application 
+                #progress.setWindowFlag(QtCore.Qt.WindowType.WindowCloseButtonHint, False)#disable button 'X' 
+                progress.setWindowModality(QtCore.Qt.WindowModality.WindowModal)              #modal for parent form 
+                #progress.setWindowModality(QtCore.Qt.WindowModality.ApplicationModal)        #modal for application 
                 time.sleep(0.1)
 
         
@@ -4709,9 +4709,9 @@ class smart_map:
                     progress.setWindowTitle('Smart-Map')
                     progress.show() 
                     progress.setCancelButton(None)                                     #remove button cancel 
-                    #progress.setWindowFlag(QtCore.Qt.WindowCloseButtonHint, False)    #disable button 'X' 
-                    progress.setWindowModality(QtCore.Qt.WindowModal)                  #modal for parent form 
-                    #progress.setWindowModality(QtCore.Qt.ApplicationModal)            #modal for application 
+                    #progress.setWindowFlag(QtCore.Qt.WindowType.WindowCloseButtonHint, False)    #disable button 'X' 
+                    progress.setWindowModality(QtCore.Qt.WindowModality.WindowModal)                  #modal for parent form 
+                    #progress.setWindowModality(QtCore.Qt.WindowModality.ApplicationModal)            #modal for application 
                     time.sleep(0.1)
 
                    
@@ -4927,9 +4927,9 @@ class smart_map:
                         progress.setWindowTitle('Smart-Map')
                         progress.show() 
                         progress.setCancelButton(None)                                            #remove button cancel 
-                        #progress.setWindowFlag(QtCore.Qt.WindowCloseButtonHint, False)           #disable button 'X' 
-                        progress.setWindowModality(QtCore.Qt.WindowModal)                         #modal for parent form 
-                        #progress.setWindowModality(QtCore.Qt.ApplicationModal)                   #modal for application 
+                        #progress.setWindowFlag(QtCore.Qt.WindowType.WindowCloseButtonHint, False)           #disable button 'X' 
+                        progress.setWindowModality(QtCore.Qt.WindowModality.WindowModal)                         #modal for parent form 
+                        #progress.setWindowModality(QtCore.Qt.WindowModality.ApplicationModal)                   #modal for application 
                         time.sleep(0.1)
 
 
@@ -4996,9 +4996,9 @@ class smart_map:
                     progress.setWindowTitle('Smart-Map')
                     progress.show() 
                     progress.setCancelButton(None)                                     #remove button cancel 
-                    #progress.setWindowFlag(QtCore.Qt.WindowCloseButtonHint, False)    #disable button 'X' 
-                    progress.setWindowModality(QtCore.Qt.WindowModal)                  #modal for parent form 
-                    #progress.setWindowModality(QtCore.Qt.ApplicationModal)            #modal for application 
+                    #progress.setWindowFlag(QtCore.Qt.WindowType.WindowCloseButtonHint, False)    #disable button 'X' 
+                    progress.setWindowModality(QtCore.Qt.WindowModality.WindowModal)                  #modal for parent form 
+                    #progress.setWindowModality(QtCore.Qt.WindowModality.ApplicationModal)            #modal for application 
                     time.sleep(0.1)
                                      
     
@@ -5076,9 +5076,9 @@ class smart_map:
                     progress.setWindowTitle('Smart-Map')
                     progress.show() 
                     progress.setCancelButton(None)                                     #remove button cancel 
-                    #progress.setWindowFlag(QtCore.Qt.WindowCloseButtonHint, False)    #disable button 'X' 
-                    progress.setWindowModality(QtCore.Qt.WindowModal)                  #modal for parent form 
-                    #progress.setWindowModality(QtCore.Qt.ApplicationModal)            #modal for application 
+                    #progress.setWindowFlag(QtCore.Qt.WindowType.WindowCloseButtonHint, False)    #disable button 'X' 
+                    progress.setWindowModality(QtCore.Qt.WindowModality.WindowModal)                  #modal for parent form 
+                    #progress.setWindowModality(QtCore.Qt.WindowModality.ApplicationModal)            #modal for application 
                     time.sleep(0.1)
 
                     lista = []                               
@@ -5167,9 +5167,9 @@ class smart_map:
                         progress.setWindowTitle('Smart-Map')
                         progress.show() 
                         progress.setCancelButton(None)                                     #remove button cancel 
-                        #progress.setWindowFlag(QtCore.Qt.WindowCloseButtonHint, False)    #disable button 'X' 
-                        progress.setWindowModality(QtCore.Qt.WindowModal)                  #modal for parent form 
-                        #progress.setWindowModality(QtCore.Qt.ApplicationModal)            #modal for application 
+                        #progress.setWindowFlag(QtCore.Qt.WindowType.WindowCloseButtonHint, False)    #disable button 'X' 
+                        progress.setWindowModality(QtCore.Qt.WindowModality.WindowModal)                  #modal for parent form 
+                        #progress.setWindowModality(QtCore.Qt.WindowModality.ApplicationModal)            #modal for application 
                         time.sleep(0.1)
             
                         
@@ -5257,9 +5257,9 @@ class smart_map:
                     progress.setWindowTitle('Smart-Map')
                     progress.show() 
                     progress.setCancelButton(None)                                     #remove button cancel 
-                    #progress.setWindowFlag(QtCore.Qt.WindowCloseButtonHint, False)    #disable button 'X' 
-                    progress.setWindowModality(QtCore.Qt.WindowModal)                  #modal for parent form 
-                    #progress.setWindowModality(QtCore.Qt.ApplicationModal)            #modal for application 
+                    #progress.setWindowFlag(QtCore.Qt.WindowType.WindowCloseButtonHint, False)    #disable button 'X' 
+                    progress.setWindowModality(QtCore.Qt.WindowModality.WindowModal)                  #modal for parent form 
+                    #progress.setWindowModality(QtCore.Qt.WindowModality.ApplicationModal)            #modal for application 
                     time.sleep(0.1)
 
     
@@ -5353,9 +5353,9 @@ class smart_map:
                     progress.setWindowTitle('Smart-Map')
                     progress.show() 
                     progress.setCancelButton(None)                                     #remove button cancel 
-                    #progress.setWindowFlag(QtCore.Qt.WindowCloseButtonHint, False)    #disable button 'X' 
-                    progress.setWindowModality(QtCore.Qt.WindowModal)                  #modal for parent form 
-                    #progress.setWindowModality(QtCore.Qt.ApplicationModal)            #modal for application 
+                    #progress.setWindowFlag(QtCore.Qt.WindowType.WindowCloseButtonHint, False)    #disable button 'X' 
+                    progress.setWindowModality(QtCore.Qt.WindowModality.WindowModal)                  #modal for parent form 
+                    #progress.setWindowModality(QtCore.Qt.WindowModality.ApplicationModal)            #modal for application 
                     time.sleep(0.1)
 
                     
@@ -5439,9 +5439,9 @@ class smart_map:
                     progress.setWindowTitle('Smart-Map')
                     progress.show() 
                     progress.setCancelButton(None)                                     #remove button cancel 
-                    #progress.setWindowFlag(QtCore.Qt.WindowCloseButtonHint, False)    #disable button 'X' 
-                    progress.setWindowModality(QtCore.Qt.WindowModal)                  #modal for parent form 
-                    #progress.setWindowModality(QtCore.Qt.ApplicationModal)            #modal for application 
+                    #progress.setWindowFlag(QtCore.Qt.WindowType.WindowCloseButtonHint, False)    #disable button 'X' 
+                    progress.setWindowModality(QtCore.Qt.WindowModality.WindowModal)                  #modal for parent form 
+                    #progress.setWindowModality(QtCore.Qt.WindowModality.ApplicationModal)            #modal for application 
                     time.sleep(0.1)
         
                                     
@@ -5504,9 +5504,9 @@ class smart_map:
                 progress.setWindowTitle('Smart-Map')
                 progress.show() 
                 progress.setCancelButton(None)                                     #remove button cancel 
-                #progress.setWindowFlag(QtCore.Qt.WindowCloseButtonHint, False)    #disable button 'X' 
-                progress.setWindowModality(QtCore.Qt.WindowModal)                  #modal for parent form 
-                #progress.setWindowModality(QtCore.Qt.ApplicationModal)            #modal for application 
+                #progress.setWindowFlag(QtCore.Qt.WindowType.WindowCloseButtonHint, False)    #disable button 'X' 
+                progress.setWindowModality(QtCore.Qt.WindowModality.WindowModal)                  #modal for parent form 
+                #progress.setWindowModality(QtCore.Qt.WindowModality.ApplicationModal)            #modal for application 
                 time.sleep(0.1)
 
 
@@ -5767,9 +5767,9 @@ class smart_map:
             progress.setWindowTitle('Smart-Map')
             progress.show() 
             progress.setCancelButton(None)                                 #remove button cancel 
-            #progress.setWindowFlag(QtCore.Qt.WindowCloseButtonHint, False)#disable button 'X' 
-            progress.setWindowModality(QtCore.Qt.WindowModal)              #modal for parent form 
-            #progress.setWindowModality(QtCore.Qt.ApplicationModal)        #modal for application 
+            #progress.setWindowFlag(QtCore.Qt.WindowType.WindowCloseButtonHint, False)#disable button 'X' 
+            progress.setWindowModality(QtCore.Qt.WindowModality.WindowModal)              #modal for parent form 
+            #progress.setWindowModality(QtCore.Qt.WindowModality.ApplicationModal)        #modal for application 
             time.sleep(0.1)
 
     
@@ -5806,9 +5806,9 @@ class smart_map:
                 progress.setWindowTitle('Smart-Map')
                 progress.show() 
                 progress.setCancelButton(None)                                     #remove button cancel 
-                #progress.setWindowFlag(QtCore.Qt.WindowCloseButtonHint, False)    #disable button 'X' 
-                progress.setWindowModality(QtCore.Qt.WindowModal)                  #modal for parent form 
-                #progress.setWindowModality(QtCore.Qt.ApplicationModal)            #modal for application 
+                #progress.setWindowFlag(QtCore.Qt.WindowType.WindowCloseButtonHint, False)    #disable button 'X' 
+                progress.setWindowModality(QtCore.Qt.WindowModality.WindowModal)                  #modal for parent form 
+                #progress.setWindowModality(QtCore.Qt.WindowModality.ApplicationModal)            #modal for application 
                 time.sleep(0.1)
 
                
@@ -5863,9 +5863,9 @@ class smart_map:
         progress.setWindowTitle('Smart-Map')
         progress.show() 
         progress.setCancelButton(None)                                     #remove button cancel 
-        #progress.setWindowFlag(QtCore.Qt.WindowCloseButtonHint, False)    #disable button 'X' 
-        progress.setWindowModality(QtCore.Qt.WindowModal)                  #modal for parent form 
-        #progress.setWindowModality(QtCore.Qt.ApplicationModal)            #modal for application 
+        #progress.setWindowFlag(QtCore.Qt.WindowType.WindowCloseButtonHint, False)    #disable button 'X' 
+        progress.setWindowModality(QtCore.Qt.WindowModality.WindowModal)                  #modal for parent form 
+        #progress.setWindowModality(QtCore.Qt.WindowModality.ApplicationModal)            #modal for application 
         time.sleep(0.1)
 
 
@@ -6174,9 +6174,9 @@ class smart_map:
         progress.setWindowTitle('Smart-Map')
         progress.show() 
         progress.setCancelButton(None)                                     #remove button cancel 
-        #progress.setWindowFlag(QtCore.Qt.WindowCloseButtonHint, False)    #disable button 'X' 
-        progress.setWindowModality(QtCore.Qt.WindowModal)                  #modal for parent form 
-        #progress.setWindowModality(QtCore.Qt.ApplicationModal)            #modal for application 
+        #progress.setWindowFlag(QtCore.Qt.WindowType.WindowCloseButtonHint, False)    #disable button 'X' 
+        progress.setWindowModality(QtCore.Qt.WindowModality.WindowModal)                  #modal for parent form 
+        #progress.setWindowModality(QtCore.Qt.WindowModality.ApplicationModal)            #modal for application 
         time.sleep(0.1)
 
 
@@ -6483,7 +6483,7 @@ class smart_map:
                 try:                       
                     
                     chkBoxItem = QTableWidgetItem()
-                    chkBoxItem.setFlags(QtCore.Qt.ItemIsUserCheckable | QtCore.Qt.ItemIsEnabled)
+                    chkBoxItem.setFlags(QtCore.Qt.ItemFlag.ItemIsUserCheckable | QtCore.Qt.ItemFlag.ItemIsEnabled)
                     chkBoxItem.setCheckState(QtCore.Qt.CheckState.Unchecked)       
                     self.dlg.datatable_ZM_Maps.setItem(i,0,chkBoxItem)           
 
@@ -6536,7 +6536,7 @@ class smart_map:
                         qTable.setItem(row,col,item)
                     for col in [1]:
                         chkBoxItem = QTableWidgetItem()
-                        chkBoxItem.setFlags(QtCore.Qt.ItemIsUserCheckable | QtCore.Qt.ItemIsEnabled)
+                        chkBoxItem.setFlags(QtCore.Qt.ItemFlag.ItemIsUserCheckable | QtCore.Qt.ItemFlag.ItemIsEnabled)
                         chkBoxItem.setCheckState(QtCore.Qt.CheckState.Unchecked)       
                         qTable.setItem(row,col,chkBoxItem)           
                 '''
@@ -6785,9 +6785,9 @@ class smart_map:
             progress.setWindowTitle('Smart-Map')
             progress.show() 
             progress.setCancelButton(None)                                     #remove button cancel 
-            #progress.setWindowFlag(QtCore.Qt.WindowCloseButtonHint, False)    #disable button 'X' 
-            progress.setWindowModality(QtCore.Qt.WindowModal)                  #modal for parent form
-            #progress.setWindowModality(QtCore.Qt.ApplicationModal)            #modal for application 
+            #progress.setWindowFlag(QtCore.Qt.WindowType.WindowCloseButtonHint, False)    #disable button 'X' 
+            progress.setWindowModality(QtCore.Qt.WindowModality.WindowModal)                  #modal for parent form
+            #progress.setWindowModality(QtCore.Qt.WindowModality.ApplicationModal)            #modal for application 
             time.sleep(0.1)
 
 
@@ -7047,9 +7047,9 @@ class smart_map:
             progress.setWindowTitle('Smart-Map')
             progress.show() 
             progress.setCancelButton(None)                                     #remove button cancel 
-            #progress.setWindowFlag(QtCore.Qt.WindowCloseButtonHint, False)    #disable button 'X' 
-            progress.setWindowModality(QtCore.Qt.WindowModal)                  #modal for parent form 
-            #progress.setWindowModality(QtCore.Qt.ApplicationModal)            #modal for application 
+            #progress.setWindowFlag(QtCore.Qt.WindowType.WindowCloseButtonHint, False)    #disable button 'X' 
+            progress.setWindowModality(QtCore.Qt.WindowModality.WindowModal)                  #modal for parent form 
+            #progress.setWindowModality(QtCore.Qt.WindowModality.ApplicationModal)            #modal for application 
             time.sleep(0.1)
 
     
@@ -7368,9 +7368,9 @@ class smart_map:
             progress.setWindowTitle('Smart-Map')
             progress.show() 
             progress.setCancelButton(None)                                     #remove button cancel 
-            #progress.setWindowFlag(QtCore.Qt.WindowCloseButtonHint, False)    #disable button 'X' 
-            progress.setWindowModality(QtCore.Qt.WindowModal)                  #modal for parent form 
-            #progress.setWindowModality(QtCore.Qt.ApplicationModal)            #modal for application 
+            #progress.setWindowFlag(QtCore.Qt.WindowType.WindowCloseButtonHint, False)    #disable button 'X' 
+            progress.setWindowModality(QtCore.Qt.WindowModality.WindowModal)                  #modal for parent form 
+            #progress.setWindowModality(QtCore.Qt.WindowModality.ApplicationModal)            #modal for application 
             time.sleep(0.1)
 
       

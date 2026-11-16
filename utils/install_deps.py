@@ -213,7 +213,8 @@ def ensure_package(import_name, pip_spec, required=True):
         try:
             progress.setWindowModality(Qt.WindowModality.ApplicationModal)
         except AttributeError:
-            progress.setWindowModality(Qt.ApplicationModal)
+            # Qt5 fallback without scoped enum nesting
+            progress.setWindowModality(getattr(Qt, 'ApplicationModal', 2))
         progress.setMinimumDuration(0)
         progress.show()
         QApplication.processEvents()
